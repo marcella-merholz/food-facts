@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/marcella-merholz/food-facts/issues"
   },
-  "homepage": "https://github.com/marcella-merholz/food-facts#readme"
+  "homepage": "https://github.com/marcella-merholz/food-facts#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
 }
