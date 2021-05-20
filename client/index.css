@@ -1,0 +1,44 @@
+#header {
+      font-size: 80px;
+      text-align: center;
+      margin-bottom: 100px;
+  }
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+#up-1 {
+    width: 100%;
+  }
+
+#fact-1 {
+    background-color: aquamarine;
+    padding-bottom: 100px;
+    margin-bottom:50px;
+    width: 100%;
+    /*clip-path: polygon(0 15%, 100% 0%, 100% 90%, 0% 100%);*/
+  }
+
+#img-1 {
+      margin-top: 50px;
+      width: 300px;
+  }
+
+#fact-2 {
+    background-color: crimson;
+    margin-bottom:50px;
+    width: 100%;
+}
+
+#img-2 {
+    margin-top: 50px;
+    width: 300px;
+}
+
+#text {
+    font-size: xx-large;
+    margin: 30px;
+}
