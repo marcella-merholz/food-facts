@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background-color: black;
+
         }
 
         * {
@@ -102,8 +102,50 @@
         <div class="container signin">
             <p>Already have an account? <a href="#">Sign in</a>.</p>
         </div>
+        
     </form>
 
+    <div id="magic"></div>
+    <button onclick="hello(this)">Hello World!</button>
+
+    <script>
+        var a = 1
+        let learningClass = {
+            teacher: 'Paula',
+            names:  ['Anton', 'Beat', 'Cyril', 'Daniel'],
+            color: 'blue'
+        } 
+
+            function hello(btn) {
+                /* console.log('Helloooo! ' + a + ' ' + btn.innerHTML); */
+
+                console.log(learningClass)
+                btn.innerHTML = "Coding Campus";
+                btn.style="font-size:5vw"
+                addTextToMagic(a);
+                ++a;
+            
+            }
+
+            function addTextToMagic(num) {
+                let magic = document.getElementById("magic");
+                let par = document.createElement("p")
+                par.innerHTML = "Hello " + getNames() + " " + num
+                for (let index = 0; index < num; index++) {
+                    par.innerHTML += "!" 
+                }
+                par.style = "color:" + learningClass.color
+                magic.appendChild(par) 
+            }
+
+            function getNames(){
+                let text = ''
+                for (const name of learningClass.names) {
+                    text += name + ' '
+                }
+                return text;
+            }
+    </script>
 </body>
 
 </html>
