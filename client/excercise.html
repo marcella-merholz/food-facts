@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de-formal">
+
+<head>
+    <title>Food Facts</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body onload="bgColor()">
+
+    <div id="text" style="margin: 50px; font-size: 30px; font-family: 'Courier New', Courier, monospace;">Create a new element: <br>s = star<br>c = circle<br>t = triangle</div>
+    <input id="transformer" type="text" style="margin-left: 50px; width: 100px;" onkeyup="transformElement(this)"></div>
+    <div id="newElement" style="margin: 50px;" class="square"></div>
+
+    <input type="button" style="margin: 50px;" value="Hide element" onclick="document.getElementById('newElement').style.visibility='hidden'">
+    <input type="button" value="Show element" onclick="document.getElementById('newElement').style.visibility='visible'">
+
+    <div id="button" type="button" style="margin: 50px; width: 70px; height: 20px; background-color: #C89BAA; text-align: center;", onclick="changeColor(this)">***</div>
+
+    <script>
+        function bgColor() {
+            document.body.style = "background-color: #91C823"; 
+        }
+
+        function transformElement(input) {
+            let inputValue = input.value;
+            let newElement = document.getElementById("newElement");
+            console.log(newElement);
+            if (inputValue == "s") {
+                newElement.className = "star"; 
+            }
+            else if (inputValue == "c") {
+                newElement.className = "circle";  
+            }    
+            else if (inputValue == "t") {
+                newElement.className = "triangle";
+            }    
+        }
+
+        let colors = ['#ddffff', '#ffddff', '#ffffdd'];
+        var idxColor = 0
+        function changeColor(button) {
+            button.style.backgroundColor = colors[idxColor]
+
+            ++idxColor;
+            if (idxColor >= colors.length) idxColor = 0
+
+            getContentFromWeb()
+        }
+
+        async function getContentFromWeb() {
+            let x = await fetch('https://randomuser.me/api')
+            let data = await x.json()
+
+            console.log(data.results)
+            let randPerson = data.results[0]
+            console.log(randPerson.name.first + ' ' + randPerson.name.last)
+        }
+         
+    </script>
+
+
+
+</body>
+</html>

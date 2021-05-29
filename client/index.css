@@ -1,6 +1,72 @@
 body {
     margin:0
   }
+
+
+  .square {
+    width: 100px;
+    height: 100px;
+    background: #7a0e32;
+  }
+
+  .circle {
+    width: 100px;
+    height: 100px;
+    background: #2a1296;
+    border-radius: 50%
+  }
+
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid #c4a419;
+  }
+
+  .star {
+    margin: 50px 0;
+    position: relative;
+    display: block;
+    color: #02746e;
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid #02746e;
+    border-left: 100px solid transparent;
+    transform: rotate(35deg);
+  }
+  .star:before {
+    border-bottom: 80px solid #02746e;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: -45px;
+    left: -65px;
+    display: block;
+    content: '';
+    transform: rotate(-35deg);
+  }
+  .star:after {
+    position: absolute;
+    display: block;
+    color: #02746e;
+    top: 3px;
+    left: -105px;
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid #02746e;
+    border-left: 100px solid transparent;
+    transform: rotate(-70deg);
+    content: '';
+  }
+
+
+
+
   
 #headline {
     width: 100%;
