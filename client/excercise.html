@@ -19,6 +19,9 @@
 
     <div id="button" type="button" style="margin: 50px; width: 70px; height: 20px; background-color: #C89BAA; text-align: center;", onclick="changeColor(this)">***</div>
 
+    <p id="myMagicText"></p>
+    <input id="dataToServer" type="text" style="margin-left: 50px; width: 100px;" onkeyup="sendContentToServer(this.value)">
+
     <script>
         function bgColor() {
             document.body.style = "background-color: #91C823"; 
@@ -47,7 +50,7 @@
             ++idxColor;
             if (idxColor >= colors.length) idxColor = 0
 
-            getContentFromWeb()
+            getContentFromServer()
         }
 
         async function getContentFromWeb() {
@@ -58,7 +61,28 @@
             let randPerson = data.results[0]
             console.log(randPerson.name.first + ' ' + randPerson.name.last)
         }
-         
+
+        async function getContentFromServer() {
+            let x = await fetch('/api/sayHello');
+            let obj = await x.json();
+            console.log(obj);
+
+            document.getElementById("myMagicText").innerHTML = obj.data + ' ' + obj.hello;
+        }
+       
+        async function sendContentToServer(par) {
+            let x = await fetch('/api/sayHello', data = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"myName": par})
+            });
+
+            if (!x.ok){
+                console.log(x)
+            }
+        }
     </script>
 
 
