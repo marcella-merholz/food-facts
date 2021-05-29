@@ -2,7 +2,7 @@
 <html lang="de-formal">
 
 <head>
-    <title>Food Facts</title>
+    <title>Excercise</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css" />
@@ -11,16 +11,58 @@
 <body onload="bgColor()">
 
     <div id="text" style="margin: 50px; font-size: 30px; font-family: 'Courier New', Courier, monospace;">Create a new element: <br>s = star<br>c = circle<br>t = triangle</div>
-    <input id="transformer" type="text" style="margin-left: 50px; width: 100px;" onkeyup="transformElement(this)"></div>
+    <input id="transformer" type="text" style="margin-left: 50px; width: 100px;" onkeyup="transformElement(this)">
     <div id="newElement" style="margin: 50px;" class="square"></div>
 
-    <input type="button" style="margin: 50px;" value="Hide element" onclick="document.getElementById('newElement').style.visibility='hidden'">
+    <input type="button" style="margin-left: 50px;" value="Hide element" onclick="document.getElementById('newElement').style.visibility='hidden'">
     <input type="button" value="Show element" onclick="document.getElementById('newElement').style.visibility='visible'">
 
     <div id="button" type="button" style="margin: 50px; width: 70px; height: 20px; background-color: #C89BAA; text-align: center;", onclick="changeColor(this)">***</div>
 
     <p id="myMagicText"></p>
     <input id="dataToServer" type="text" style="margin-left: 50px; width: 100px;" onkeyup="sendContentToServer(this.value)">
+
+    <div id="magic" style="margin: 50px;"></div>
+    <button onclick="hello(this)" style="margin-left: 50px;">Hello World!</button>
+
+    <script>
+        var a = 1
+        let learningClass = {
+            teacher: 'Paula',
+            names:  ['Anton', 'Beat', 'Cyril', 'Daniel'],
+            color: 'blue'
+        } 
+
+            function hello(btn) {
+                /* console.log('Helloooo! ' + a + ' ' + btn.innerHTML); */
+
+                console.log(learningClass)
+                btn.innerHTML = "Coding Campus";
+                btn.style="font-size:5vw"
+                addTextToMagic(a);
+                ++a;
+            
+            }
+
+            function addTextToMagic(num) {
+                let magic = document.getElementById("magic");
+                let par = document.createElement("p")
+                par.innerHTML = "Hello " + getNames() + " " + num
+                for (let index = 0; index < num; index++) {
+                    par.innerHTML += "!" 
+                }
+                par.style = "color:" + learningClass.color
+                magic.appendChild(par) 
+            }
+
+            function getNames(){
+                let text = ''
+                for (const name of learningClass.names) {
+                    text += name + ' '
+                }
+                return text;
+            }
+    </script>
 
     <script>
         function bgColor() {
