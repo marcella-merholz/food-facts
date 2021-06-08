@@ -2,8 +2,11 @@ const express = require('express'); // loading express library
 const cors = require('cors'); // cross origin request ..., Schutzmechanismus
 const path = require('path'); // path package node
 const fs = require('fs');
+const UserController = require("./api/user-controller");
+const UserRepository = require("./model/user-repository");
 
 const app = express(); //instanciate express app, Server starten
+const userController = new UserController();
 const port = 3000; // unsere app hört auf diesen port (Standart http-Port: 80, https: 443)
 
 app.use(cors());
@@ -14,13 +17,14 @@ app.use(express.urlencoded({
 }));
 
 app.post('/user/register', async function (req, res, next) {
-  let name = req.body.name;
-  let email = req.body.email;
-  let userName = req.body.userName;
-  let userData = { name: name, email: email, userName: userName };
-  res.send(userData);
-  console.log(req.body.name);
+  userController.register(req.body);
+  res.sendStatus(200);
 });
+
+app.get("/users", async function  (req, res, next) {
+  const users = await userController.getUsers();
+  res.json(users);
+  });
 
 /* Excercise -----------------------------------------------------------*/
 
@@ -55,4 +59,8 @@ app.post('/api/sayHello', function (req, res) {
 app.listen(port, function () {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+// create db an fill with data
+const userRepository = new UserRepository();
+userRepository.init().catch(error => console.error(error));
 
