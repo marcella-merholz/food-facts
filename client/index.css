@@ -149,12 +149,8 @@ body {
     color: #ffffff;
 }
 
-.more:hover {
-  display: "▶";
-}
-
 .more:hover::before {
-  content: "▶";
+  content: "▶ mehr Info ";
 }
 
 #fact-1 {
