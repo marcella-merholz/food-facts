@@ -67,8 +67,17 @@ body {
 
 /* -----------------------------------------------------------*/
 
+#header-container {
+  padding: 15px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  background-color: #000000;
+  height: 50px;
+}
 
-  
 #headline {
     width: 100%;
     text-align: center;
@@ -106,7 +115,7 @@ body {
     padding-top: 0px;
 }  
 
-.flex-container {
+.content-container {
     display: flex;
     flex-direction: column;
   }
@@ -129,11 +138,23 @@ body {
     color: #ffffff;
     font-size: 28px;
     line-height: 1.4em;
+    letter-spacing: 0.04em;
 }
 
 .more {
     position: relative;
     left: 5px;
+    font-size: 30px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.more:hover {
+  display: "▶";
+}
+
+.more:hover::before {
+  content: "▶";
 }
 
 #fact-1 {
