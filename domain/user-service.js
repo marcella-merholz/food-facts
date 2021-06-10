@@ -16,7 +16,8 @@ module.exports = class UserService {
                 message: 'diese Email-Adresse ist bereits registriert.'})
         }
         else 
-            return res.status(200).json({message: 'OK'})
+            userRepository.addUser(userData);
+            return res.status(200).json({message: 'Sie haben sich erfolgreich registriert.'})
         
 
         // prüfen ob email schon existiert userRepository.getUserByEmail() (??? req,res if res>0 ...)

@@ -17,6 +17,9 @@
 
     <div id = confirmation>Status</div>
 
+    <input type="button" value="getUserData" onclick="getUsers()">
+    <div id = userData>Status</div>
+
     <script>
         async function sendRegister() {
             let parUsername = document.getElementById('username').value
@@ -38,6 +41,14 @@
             let result = await x.json()
             console.log(result.message)
             document.getElementById("confirmation").innerHTML = result.message;
+        }
+
+        async function getUsers() {
+            let x = await fetch('/users');
+            let userData = await x.json();
+            console.log(userData);
+
+            document.getElementById("userData").innerHTML = userData.length;
         }
 
     </script>
