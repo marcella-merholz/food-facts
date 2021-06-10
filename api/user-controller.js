@@ -8,12 +8,12 @@ module.exports = class UserController {
         return await userService.getUsers();
     }
 
-    async register(reqBody) {
+    async register(reqBody, res) {
         let username = reqBody.username;
         let email = reqBody.email;
         let password = reqBody.password;
         let userData = { username, email, password };
-        userService.register(userData);
+        await userService.register(userData, res);
     }
 
 }

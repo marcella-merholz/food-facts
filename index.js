@@ -4,9 +4,11 @@ const path = require('path'); // path package node
 const fs = require('fs');
 const UserController = require("./api/user-controller");
 const UserRepository = require("./model/user-repository");
+const { text } = require('express');
 
 const app = express(); //instanciate express app, Server starten
 const userController = new UserController();
+
 const port = 3000; // unsere app hört auf diesen port (Standart http-Port: 80, https: 443)
 
 app.use(cors());
@@ -17,8 +19,7 @@ app.use(express.urlencoded({
 }));
 
 app.post('/user/register', async function (req, res, next) {
-  userController.register(req.body);
-  res.sendStatus(200);
+  await userController.register(req.body, res);
 });
 
 app.get("/users", async function  (req, res, next) {
@@ -26,7 +27,7 @@ app.get("/users", async function  (req, res, next) {
   res.json(users);
   });
 
-/* Excercise -----------------------------------------------------------*/
+/* Excercise -----------------------------------------------------------
 
 let content = {
   counter: 0,
@@ -54,7 +55,7 @@ app.post('/api/sayHello', function (req, res) {
   res.sendStatus(200);
 });
 
-/* Excercise end -----------------------------------------------------------*/
+Excercise end -----------------------------------------------------------*/
 
 app.listen(port, function () {
   console.log(`Example app listening at http://localhost:${port}`);

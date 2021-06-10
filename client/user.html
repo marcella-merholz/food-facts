@@ -10,15 +10,35 @@
 </head>
 
 <body>
+    <input id="username" type="text" name="username" placeholder="Enter Username: " required>
+    <input id="email" type="text" name="email" placeholder="Enter E-Mail: " required>
+    <input id="password" type="password" name="password" placeholder="Enter Password: " required>
+    <input type="button" value="Send" onclick="sendRegister()">
 
-    <form action="/user/register" method="post">
-        <input id="username" type="text" name="username" value="Enter Username: " required>
-        <input id="email" type="text" name="email" value="Enter E-Mail: " required>
-        <input id="password" type="text" name="password" value="Enter Password: " required>
-        <input type="submit" value="OK">
-    </form>
+    <div id = confirmation>Status</div>
 
     <script>
+        async function sendRegister() {
+            let parUsername = document.getElementById('username').value
+            let parEmail = document.getElementById('email').value
+            let parPassword = document.getElementById('password').value
+            console.log(parUsername, parEmail, parPassword)
+
+            let x = await fetch('/user/register', data = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "username": parUsername, 
+                    "email": parEmail, 
+                    "password": parPassword, 
+                    })
+            });
+            let result = await x.json()
+            console.log(result.message)
+            document.getElementById("confirmation").innerHTML = result.message;
+        }
 
     </script>
 
