@@ -10,22 +10,27 @@
 </head>
 
 <body>
-    <input id="username" type="text" name="username" placeholder="Enter Username: " required>
-    <input id="email" type="text" name="email" placeholder="Enter E-Mail: " required>
-    <input id="password" type="password" name="password" placeholder="Enter Password: " required>
-    <input type="button" value="Send" onclick="sendRegister()">
 
-    <div id = confirmation>Status</div>
+    <div id=register>
+        <input id="username" type="text" name="username" placeholder="Enter Username: " required>
+        <input id="email" type="text" name="email" placeholder="Enter E-Mail: " required>
+        <input id="password" type="password" name="password" placeholder="Enter Password: " required>
+        <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password: " required>
+        <input type="button" value="Send" onclick="sendRegister()">
 
-    <input type="button" value="getUserData" onclick="getUsers()">
-    <div id = userData>Status</div>
+        <div id=confirmation>Status</div>
+    </div>
+
+    <!-- <input type="button" value="getUserData" onclick="getUsers()">
+    <div id = userData>Status</div> -->
 
     <script>
         async function sendRegister() {
             let parUsername = document.getElementById('username').value
             let parEmail = document.getElementById('email').value
             let parPassword = document.getElementById('password').value
-            console.log(parUsername, parEmail, parPassword)
+            let parpasswordConfirmation = document.getElementById('passwordConfirmation').value
+            // console.log(parUsername, parEmail, parPassword)
 
             let x = await fetch('/user/register', data = {
                 method: 'POST',
@@ -33,13 +38,14 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "username": parUsername, 
-                    "email": parEmail, 
-                    "password": parPassword, 
-                    })
+                    "username": parUsername,
+                    "email": parEmail,
+                    "password": parPassword,
+                    "passwordConfirmation": parpasswordConfirmation,
+})
             });
             let result = await x.json()
-            console.log(result.message)
+            // console.log(result.message)
             document.getElementById("confirmation").innerHTML = result.message;
         }
 

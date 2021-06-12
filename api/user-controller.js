@@ -12,7 +12,8 @@ module.exports = class UserController {
         let username = reqBody.username;
         let email = reqBody.email;
         let password = reqBody.password;
-        let userData = { username, email, password };
+        let passwordConfirmation = reqBody.passwordConfirmation;
+        let userData = { username, email, password, passwordConfirmation };
         await userService.register(userData, res);
     }
 
