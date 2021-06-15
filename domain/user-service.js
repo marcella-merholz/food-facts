@@ -1,6 +1,6 @@
 const UserRepository = require("../model/user-repository");
 const userRepository = new UserRepository();
-const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 module.exports = class UserService {
 
@@ -11,16 +11,18 @@ module.exports = class UserService {
 
     async registerUser(username, email, password) {
         const hashedPassword = this.hashPassword(password);
-        userRepository.addUser(username, email, hashedPassword);
+        await userRepository.addUser(username, email, hashedPassword);
     }
 
     async getUserByEmail(email) {
-        let user = await userRepository.getUserByEmail(email)
+        const user = await userRepository.getUserByEmail(email)
         return user;
     }
 
-    async hashPassword(password) {
-        let hashedPassword = await bcrypt.hash(password, 8);
+    hashPassword(password) {
+        const sha = crypto.createHash('sha1');
+        sha.update(password);
+        const hashedPassword = sha.digest("hex");
         console.log(hashedPassword);
         return hashedPassword;
     }

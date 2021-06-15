@@ -25,13 +25,18 @@ module.exports = class UserRepository {
   async getUserByEmail(email) {
     const db = await this.openDb();
     const user = await db.all('SELECT * FROM users WHERE email = ?', [email]);
-    return user;
+    if (user.length === 0) {
+      return null;
+    } else {
+      return user[0];
+    }
   }
 
   async getUsers() {
     // data storage interaction here (f.e. DB access)
     const db = await this.openDb();
     const users = await db.all('SELECT * FROM users;');
+    console.log(users);
     return users;
   }
 

@@ -12,45 +12,71 @@
 <body>
 
     <div id=register>
-        <input id="username" type="text" name="username" placeholder="Enter Username: " required>
-        <input id="email" type="text" name="email" placeholder="Enter E-Mail: " required>
-        <input id="password" type="password" name="password" placeholder="Enter Password: " required>
-        <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password: " required>
+        <input id="rUsername" type="text" name="username" placeholder="Enter Username: " required>
+        <input id="rEmail" type="text" name="email" placeholder="Enter E-Mail: " required>
+        <input id="rPassword" type="password" name="password" placeholder="Enter Password: " required>
+        <input id="rPasswordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password: " required>
         <input type="button" value="Send" onclick="sendRegister()">
 
-        <div id=confirmation>Status</div>
+        <div id=registerConfirmation>Status</div>
     </div>
 
-    <!-- <input type="button" value="getUserData" onclick="getUsers()">
-    <div id = userData>Status</div> -->
+    <div id=login>
+        <input id="lEmail" type="text" name="email" placeholder="Enter E-Mail: " required>
+        <input id="lPassword" type="password" name="password" placeholder="Enter Password: " required>
+        <input type="button" value="Send" onclick="sendLogin()">
+
+        <div id=loginConfirmation>Status</div>
+    </div>
+
+    <input type="button" value="getUserData" onclick="getUsers()">
+    <div id = userData>Status</div>
 
     <script>
         async function sendRegister() {
-            let parUsername = document.getElementById('username').value
-            let parEmail = document.getElementById('email').value
-            let parPassword = document.getElementById('password').value
-            let parpasswordConfirmation = document.getElementById('passwordConfirmation').value
+            const parRUsername = document.getElementById('rUsername').value
+            const parREmail = document.getElementById('rEmail').value
+            const parRPassword = document.getElementById('rPassword').value
+            const parRPasswordConfirmation = document.getElementById('rPasswordConfirmation').value
             // console.log(parUsername, parEmail, parPassword)
 
-            let x = await fetch('/user/register', data = {
+            const x = await fetch('/user/register', data = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "username": parUsername,
-                    "email": parEmail,
-                    "password": parPassword,
-                    "passwordConfirmation": parpasswordConfirmation,
+                    username: parRUsername,
+                    email: parREmail,
+                    password: parRPassword,
+                    passwordConfirmation: parRPasswordConfirmation,
 })
             });
-            let result = await x.json()
-            document.getElementById("confirmation").innerHTML = result.message;
+            const result = await x.json()
+            document.getElementById("registerConfirmation").innerHTML = result.message;
+        }
+
+        async function sendLogin() {
+            const parLEmail = document.getElementById('lEmail').value
+            const parLPassword = document.getElementById('lPassword').value
+
+            const x = await fetch('/user/login', data = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "email": parLEmail,
+                    "password": parLPassword,
+})
+            });
+            const result = await x.json()
+            document.getElementById("loginConfirmation").innerHTML = result.message;
         }
 
         async function getUsers() {
-            let x = await fetch('/users');
-            let userData = await x.json();
+            const x = await fetch('/users');
+            const userData = await x.json();
             console.log(userData);
 
             document.getElementById("userData").innerHTML = userData.length;

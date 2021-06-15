@@ -19,14 +19,27 @@ app.use(express.urlencoded({
 }));
 
 app.post('/user/register', async function (req, res, next) {
-  await userController.register(req.body);
-  res.status(200).json({ message: 'Sie haben sich erfolgreich registriert.' });
+  try {
+    await userController.register(req.body);
+    res.status(200).json({ message: 'Sie haben sich erfolgreich registriert.' });
+} catch (err) {
+    next(err);
+  }
 });
 
-app.get("/users", async function  (req, res, next) {
+app.post('/user/login', async function (req, res, next) {
+  try {
+    await userController.login(req.body);
+    res.status(200).json({ message: 'Sie haben sich erfolgreich eingeloggt.' });
+} catch (err) {
+    next(err);
+  }
+});
+
+app.get("/users", async function (req, res, next) {
   const users = await userController.getUsers();
   res.json(users);
-  });
+});
 
 /* Excercise -----------------------------------------------------------
 
@@ -66,3 +79,8 @@ app.listen(port, function () {
 const userRepository = new UserRepository();
 userRepository.init().catch(error => console.error(error));
 
+app.use(function(err, req, res, next) {
+  console.error(err.message);
+  console.error(err.stack);
+  res.status(500).send({message: err.message});
+});
