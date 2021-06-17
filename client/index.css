@@ -1,8 +1,14 @@
 body {
-    margin:0
+    margin: 0;
+    padding: 0;
   }
 
-/* Excercise -----------------------------------------------------------*/
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+
+/* Excercise -----------------------------------------------------------
 
   .square {
     width: 100px;
@@ -65,18 +71,40 @@ body {
     content: '';
   }
 
-/* -----------------------------------------------------------*/
+-----------------------------------------------------------*/
+
+/* Header */
+
+header {
+  display: block;
+}
+
+.header-stuck {
+  position: sticky;
+  top: 0;
+  z-index: 101;
+}
 
 #header-container {
-  padding: 15px;
-  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
+  align-items:center;
   justify-content: space-between;
+  position: relative;
   background-color: #000000;
-  height: 50px;
+  height: 8vw;
 }
+
+.menue {
+  height: 4vw;
+}
+
+.userIcon {
+  height: 4vw;
+}
+
+/* Headline */
 
 #headline {
     width: 100%;
@@ -99,13 +127,15 @@ body {
     letter-spacing: 5px;
   }
 
+  /* Fact */
+
 .up {
-    margin-bottom: -50px;
+    margin-bottom: -10vw;
     width: 100%;
 }
 
 .down {
-    margin-top: -50px;
+    margin-top: -25px;
     margin-bottom: 50px;
     width: 100%;
 }
@@ -124,27 +154,34 @@ body {
     align-self: center;
 } 
 
+.act-small {
+  position: relative;
+  height: 10vw;
+
+}
+
 .subline-specs {
     font-family: Helvetica;
     color: #ffffff;
     font-weight:bold;
-    font-size: 48px;
-    letter-spacing: 2px;
+    font-size: 7vw;
     line-height: 2.1em;
+    letter-spacing: 0.02em;
 }
 
 .text-specs {
+    word-wrap: break-word;
     font-family: Helvetica;
     color: #ffffff;
-    font-size: 28px;
+    font-size: 4vw;
     line-height: 1.4em;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
 }
 
 .more {
     position: relative;
     left: 5px;
-    font-size: 30px;
+    font-size: 4vw;
     text-decoration: none;
     color: #ffffff;
 }
@@ -158,7 +195,8 @@ body {
 }
 
 #img-1 {
-    width: 40vw;
+    width: 25vw;
+    margin-bottom: 8vw;
 }
 
 #fact-2 {
@@ -166,10 +204,11 @@ body {
 }
 
 #img-2 {
-    margin-top: -100px;
-    width: 300px;
+  width: 25vw;
+  margin-bottom: 8vw;
 }
 
+/* Responsive */
 
 @media (max-width: 600px) {
     .header-specs {
@@ -177,11 +216,11 @@ body {
         } 
     
     .subline-specs {
-        font-size: 36px;
+        font-size: 7vw;
     }
 
     .text-specs {
-        font-size: 22px;
+        font-size: 4vw;
     }
 
 }
