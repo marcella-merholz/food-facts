@@ -15,7 +15,8 @@
         <input id="rUsername" type="text" name="username" placeholder="Enter Username: " required>
         <input id="rEmail" type="text" name="email" placeholder="Enter E-Mail: " required>
         <input id="rPassword" type="password" name="password" placeholder="Enter Password: " required>
-        <input id="rPasswordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password: " required>
+        <input id="rPasswordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password: "
+            required>
         <input type="button" value="Send" onclick="sendRegister()">
 
         <div id=registerConfirmation>Status</div>
@@ -30,7 +31,7 @@
     </div>
 
     <input type="button" value="getUserData" onclick="getUsers()">
-    <div id = userData>Status</div>
+    <div id=userData>Status</div>
 
     <script>
         async function sendRegister() {
@@ -50,7 +51,7 @@
                     email: parREmail,
                     password: parRPassword,
                     passwordConfirmation: parRPasswordConfirmation,
-})
+                })
             });
             const result = await x.json()
             document.getElementById("registerConfirmation").innerHTML = result.message;
@@ -66,9 +67,9 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "email": parLEmail,
-                    "password": parLPassword,
-})
+                    email: parLEmail,
+                    password: parLPassword,
+                })
             });
             const result = await x.json()
             document.getElementById("loginConfirmation").innerHTML = result.message;

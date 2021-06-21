@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de-formal">
+
+<head>
+    <title>Challenge</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+
+</head>
+
+<body>
+
+    <div id=select>
+        <input id="challenge1" type="checkbox" name="challenge1" value="1">
+        <input id="challenge2" type="checkbox" name="challenge2" value="2">
+        <input type="button" value="Send" onclick="sendSelected()">
+
+        <div id=selectedConfirmation>Status</div>
+    </div>
+
+    <input type="button" value="getUserChallenges" onclick="getUserChallenges()">
+    <div id=userChallenges>Status</div>
+
+    <script>
+        async function sendSelected() {
+            const parChallenge1 = {status: document.getElementById('challenge1').checked, id: document.getElementById('challenge1').value};
+            const parChallenge2 = {status: document.getElementById('challenge2').checked, id: document.getElementById('challenge2').value};
+            console.log(parChallenge1);
+            
+            const x = await fetch('/challenge/select', data = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    challenge1: parChallenge1,
+                    challenge2: parChallenge2,
+                })
+            });
+            const result = await x.json()
+            document.getElementById("selectedConfirmation").innerHTML = result.message;
+        }
+
+        async function getUserChallenges() {
+            const x = await fetch('/userChallenges');
+            const userChallenges = await x.json();
+            console.log(userChallenges);
+
+            document.getElementById("userChallenges").innerHTML = userChallenges;
+        }
+
+    </script>
+
+</body>
+
+</html>
