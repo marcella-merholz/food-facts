@@ -19,17 +19,6 @@ module.exports = class UserChallengeController {
         }
     }
 
-    /*
-    checkSelected(challenges) {
-        for (const challenge of challenges) {
-            if (challenge.status === true) {
-                const challengeID = challenge.value;
-                userChallengeService.setUserChallenge(challengeID);
-            }
-        }
-    }
-    */
-
     async getUserChallenges() {
         return await userChallengeService.getUserChallenges();
     }
