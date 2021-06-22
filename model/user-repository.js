@@ -5,7 +5,7 @@ module.exports = class UserRepository {
 
   async openDb() {
     return sqlite.open({
-      filename: 'users.db',
+      filename: 'food-facts.db',
       driver: sqlite3.Database
     })
   }

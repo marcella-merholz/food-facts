@@ -12,8 +12,12 @@
 <body>
 
     <div id=select>
-        <input id="challenge1" type="checkbox" name="challenge1" value="1">
-        <input id="challenge2" type="checkbox" name="challenge2" value="2">
+        <label>Zeitraum festlegen: <input id="duration" type="date" name="duration"></label><br>
+
+        <label><input id="challenge1" type="checkbox" name="challenge1" value="1">Ich verzichte auf
+            Fleischprodukte.</label><br>
+        <label><input id="challenge2" type="checkbox" name="challenge2" value="2">Ich bereite mein Essen frisch
+            zu.</label><br>
         <input type="button" value="Send" onclick="sendSelected()">
 
         <div id=selectedConfirmation>Status</div>
@@ -22,12 +26,52 @@
     <input type="button" value="getUserChallenges" onclick="getUserChallenges()">
     <div id=userChallenges>Status</div>
 
+    <input type="button" value="getChallenges" onclick="getChallenges()">
+    <div id=challenge1>Challenge1</div>
+    <div id=challenge2>Challenge2</div>
+    <div id=challenge3>Challenge3</div>
+    <div id=challenge4>Challenge4</div>
+    <div id=challenge5>Challenge5</div>
+    <div id=challenge6>Challenge6</div>
+    <div id=challenge7>Challenge7</div>
+    <div id=challenge8>Challenge8</div>
+    <div id=challenge9>Challenge9</div>
+
+
     <script>
+
+        async function getChallenges() {
+            const x = await fetch('/challenges');
+            const challenges = await x.json();
+            for (challenge of challenges) {
+                document.getElementById("challenge" + challenge.id).innerHTML = challenge.description;
+
+                const newChallenge = document.createElement("p");
+                newChallenge.innerHTML = challenge.description;
+                console.log(challenge.description);
+            }
+
+        }
+
+        /*
+        async function getChallenges() {
+            const x = await fetch('/challenges');
+            const challenges = await x.json();
+            let magic = document.getElementById("magic");
+            for (challenge of challenges) {
+                let newChallenge = document.createElement("input")
+                newChallenge.innerHTML = document.getElementById("challenge" + challenge.id).innerHTML = challenge.description;
+            }
+        }
+        */
+
         async function sendSelected() {
-            const parChallenge1 = {status: document.getElementById('challenge1').checked, id: document.getElementById('challenge1').value};
-            const parChallenge2 = {status: document.getElementById('challenge2').checked, id: document.getElementById('challenge2').value};
+            const parChallenge1 = { status: document.getElementById('challenge1').checked, id: document.getElementById('challenge1').value };
+            const parChallenge2 = { status: document.getElementById('challenge2').checked, id: document.getElementById('challenge2').value };
+            const parDuration = document.getElementById('duration').value;
             console.log(parChallenge1);
-            
+            console.log(parDuration);
+
             const x = await fetch('/challenge/select', data = {
                 method: 'POST',
                 headers: {
@@ -36,6 +80,7 @@
                 body: JSON.stringify({
                     challenge1: parChallenge1,
                     challenge2: parChallenge2,
+                    duration: parDuration,
                 })
             });
             const result = await x.json()

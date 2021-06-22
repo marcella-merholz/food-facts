@@ -4,12 +4,15 @@ const path = require('path'); // path package node
 const fs = require('fs');
 const UserController = require("./api/user-controller");
 const UserRepository = require("./model/user-repository");
+const ChallengesController = require("./api/challenges-controller");
+const ChallengesRepository = require("./model/challenges-repository");
 const UserChallengeController = require("./api/userChallenge-controller");
 const UserChallengeRepository = require("./model/userChallenge-repository");
 const { text } = require('express');
 
 const app = express(); //instanciate express app, Server starten
 const userController = new UserController();
+const challengesController = new ChallengesController();
 const userChallengeController = new UserChallengeController();
 
 const port = 3000; // unsere app hört auf diesen port (Standart http-Port: 80, https: 443)
@@ -21,7 +24,8 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-// User ------------------------------------------------------------------------
+
+// User ------------------------------------------------------------------------------ //
 app.post('/user/register', async function (req, res, next) {
   try {
     await userController.register(req.body);
@@ -46,10 +50,17 @@ app.get("/users", async function (req, res, next) {
 });
 
 
-// UserChallenge ------------------------------------------------------------------------
+// Challenges --------------------------------------------------------------------------- //
+app.get("/challenges", async function (req, res, next) {
+  const challenges = await challengesController.getChallenges();
+  res.json(challenges);
+});
+
+
+// UserChallenge ------------------------------------------------------------------------ //
 app.post('/challenge/select', async function (req, res, next) {
   try {
-    await userChallengeController.getSelected(req.body);
+    await userChallengeController.checkSelected(req.body);
     res.status(200).json({ message: 'YEAH! Sie haben Ihre persönliche Challenge erstellt. Den aktuellen Status können Sie sich jederzeit in Ihren Benutzereinstellungen anzeigen lassen und verändern.' });
   } catch (err) {
     next(err);
@@ -60,6 +71,46 @@ app.get("/userChallenges", async function (req, res, next) {
   const userChallenges = await userChallengeController.getUserChallenges();
   res.json(userChallenges);
 });
+
+
+// Allgemein --------------------------------------------------------------------------- //
+app.listen(port, function () {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+
+
+// create db an fill with data / error handling ----------------------------------------- //
+const userRepository = new UserRepository();
+userRepository.init().catch(error => console.error(error));
+
+app.use(function (err, req, res, next) {
+  console.error(err.message);
+  console.error(err.stack);
+  res.status(500).send({ message: err.message });
+});
+
+
+const challengesRepository = new ChallengesRepository();
+challengesRepository.init().catch(error => console.error(error));
+
+app.use(function (err, req, res, next) {
+  console.error(err.message);
+  console.error(err.stack);
+  res.status(500).send({ message: err.message });
+});
+
+
+const userChallengeRepository = new UserChallengeRepository();
+userChallengeRepository.init().catch(error => console.error(error));
+
+app.use(function (err, req, res, next) {
+  console.error(err.message);
+  console.error(err.stack);
+  res.status(500).send({ message: err.message });
+});
+
+
+
 
 
 /* Excercise -----------------------------------------------------------
@@ -91,26 +142,3 @@ app.post('/api/sayHello', function (req, res) {
 });
 
 Excercise end -----------------------------------------------------------*/
-
-app.listen(port, function () {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
-
-// create db an fill with data
-const userRepository = new UserRepository();
-userRepository.init().catch(error => console.error(error));
-
-app.use(function (err, req, res, next) {
-  console.error(err.message);
-  console.error(err.stack);
-  res.status(500).send({ message: err.message });
-});
-
-const userChallengeRepository = new UserChallengeRepository();
-userChallengeRepository.init().catch(error => console.error(error));
-
-app.use(function (err, req, res, next) {
-  console.error(err.message);
-  console.error(err.stack);
-  res.status(500).send({ message: err.message });
-});

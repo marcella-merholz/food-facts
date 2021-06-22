@@ -3,9 +3,10 @@ const userChallengeRepository = new UserChallengeRepository();
 
 module.exports = class UserChallengeService {
 
-    async setUserChallenge(challengeId) {
+    async setUserChallenge(challengeId, duration) {
         console.log(challengeId);
-        await userChallengeRepository.setUserChallenge(challengeId);
+        console.log(duration);
+        await userChallengeRepository.setUserChallenge(challengeId, duration);
     }
 
     async getUserChallenges() {
