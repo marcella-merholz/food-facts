@@ -42,8 +42,8 @@ module.exports = class UserController {
 
     async verifyUser(email, hashedPassword) {
         const user = await userService.getUserByEmail(email);
-        if (user != null && hashedPassword === user.password) {
-            console.log(user.password);
+        if (user != null && hashedPassword === user.Password) {
+            console.log(user.Password);
             // Session Handling Status auf eingelogged setzen
         } else {
             throw {

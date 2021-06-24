@@ -4,10 +4,8 @@ const userChallengeService = new UserChallengeService();
 module.exports = class UserChallengeController {
 
     async checkSelected(reqBody) {
-        const { challenge1, challenge2, duration } = reqBody;
-        const challenges = [challenge1, challenge2];
+        const { challenges, duration } = reqBody;
         for (const challenge of challenges) {
-            console.log(challenge.status);
             if (challenge.status === true) {
                 const challengeId = challenge.id;
                 await userChallengeService.setUserChallenge(challengeId, duration);

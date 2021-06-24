@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de-formal">
+
+<head>
+    <title>Excercise</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+
+    <input type="button" value="getChallenges" onclick="getChallenges()">
+    <div id="challengeContainer"></div>
+
+</body>
+
+<script>
+
+    async function getChallenges() {
+        const x = await fetch('/challenges');
+        const challenges = await x.json();
+        for (oneChallenge of challenges) {
+            const id = oneChallenge.id;
+            const text = oneChallenge.description;
+
+            console.log(id);
+            console.log(text);
+
+            const challengeDescription = document.createElement("LABEL");
+            challengeDescription.setAttribute("id", "challengeDescription");
+
+            const challenge = document.createElement("INPUT");
+            challenge.setAttribute("id", "challenge");
+            challenge.setAttribute("type", "checkbox");
+            challenge.setAttribute("name", "challenge");
+            challenge.setAttribute("value", id);
+
+            const description = document.createTextNode(text);
+
+            document.getElementById("challengeContainer").appendChild(challengeDescription);
+            document.getElementById("challengeDescription").appendChild(challenge);
+            document.getElementById("challengeDescription").appendChild(description);
+
+        }
+    }
+
+</script>

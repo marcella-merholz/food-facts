@@ -5,21 +5,15 @@ module.exports = class UserChallengeRepository {
 
     async openDb() {
         return sqlite.open({
-            filename: 'food-facts.db',
+            filename: 'foodFacts.db',
             driver: sqlite3.Database
         })
     }
 
-    async init() {
-        const db = await this.openDb();
-        await db.exec('DROP TABLE IF EXISTS userChallenges');
-    }
-
     async setUserChallenge(challengeId, duration) {
-        console.log(challengeId);
         const db = await this.openDb();
-        await db.exec('CREATE TABLE IF NOT EXISTS userChallenges (id INTEGER PRIMARY KEY AUTOINCREMENT, challengeId Text NOT NULL, duration Date NOT NULL);');
-        await db.run('INSERT INTO userChallenges(challengeId, duration) VALUES (?,?)', [challengeId, duration,]);
+        await db.exec('CREATE TABLE IF NOT EXISTS userChallenges (ID INTEGER PRIMARY KEY AUTOINCREMENT, UserID INTEGER NOT NULL, ChallengeID INTEGER NOT NULL, Duration TEXT NOT NULL, Status INTEGER NOT NULL);');
+        await db.run('INSERT INTO userChallenges(UserID, ChallengeID, Duration, Status) VALUES (?,?,?,?)', ["1", challengeId, duration, 0]);
     }
 
     async getUserChallenges() {

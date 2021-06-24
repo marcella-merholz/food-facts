@@ -81,7 +81,6 @@ app.listen(port, function () {
 
 // create db an fill with data / error handling ----------------------------------------- //
 const userRepository = new UserRepository();
-userRepository.init().catch(error => console.error(error));
 
 app.use(function (err, req, res, next) {
   console.error(err.message);
@@ -91,7 +90,6 @@ app.use(function (err, req, res, next) {
 
 
 const challengesRepository = new ChallengesRepository();
-challengesRepository.init().catch(error => console.error(error));
 
 app.use(function (err, req, res, next) {
   console.error(err.message);
@@ -101,7 +99,6 @@ app.use(function (err, req, res, next) {
 
 
 const userChallengeRepository = new UserChallengeRepository();
-userChallengeRepository.init().catch(error => console.error(error));
 
 app.use(function (err, req, res, next) {
   console.error(err.message);
