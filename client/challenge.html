@@ -6,24 +6,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css" />
-
 </head>
 
-<body>
+<body onload="getChallenges()">
 
-    <div id=select>
+    <!-------------------------- Header und Userhandling ---------------------------->
+
+    <iframe id="userRL" src="user.html"></iframe>
+
+    <header class="header-stuck">
+        <div id="header-container">
+            <div id="menue"><img class="menue" src="img/ff-svg-files/Menue-weiss.svg" alt="menue"></div>
+            <div id="user" class="text-specs">
+                <span class="userRL" onclick="showUserR()">Register </span>/
+                <span class="userRL" onclick="showUserL()">Login</span>
+            </div>
+        </div>
+    </header>
+
+    <h1 id="headline" class="headline-specs">Food F<span id="act-container"><img class="act" src="img/ff-svg-files/act-small.svg"></span>acts
+        <!--<span id="world">🌍︎</span>-->
+    </h1>
+
+    <div id=select class="text-specs black">
         <label>Zeitraum festlegen: <input id="duration" type="date" name="duration"></label><br>
-
-        <input type="button" value="getChallenges" onclick="getChallenges()"> <!-- noch ändern auf onLoad -->
         <div id="challengeContainer"></div><br>
-
-        <input type="button" value="Send" onclick="sendSelected()">
-        <div id=selectedConfirmation>Status</div>
+        <input class="text-specs black send" type="button" value="Send" onclick="sendSelected()">
+        <div id=selectedConfirmation></div>
     </div>
 
 
     <script>
 
+        //-------------------------- SCRIPT Userhandling ----------------------------
+
+        function showUserR() {
+            const myframe = document.getElementById("userRL");
+            const register = myframe.contentWindow.document.getElementById("register");
+            myframe.style.visibility = "visible";
+            register.style.visibility = "visible";
+        }
+
+        function showUserL() {
+            const myframe = document.getElementById("userRL");
+            const login = myframe.contentWindow.document.getElementById("login");
+            myframe.style.visibility = "visible";
+            login.style.visibility = "visible";
+        }
+
+        //-------------------------- SCRIPT Challenges ----------------------------
+        
         async function getChallenges() {
             const x = await fetch('/challenges');
             const challenges = await x.json();
@@ -49,7 +81,6 @@
             }
         }
 
-
         async function sendSelected() {
             let challengeCont = document.getElementById("challengeContainer")
             let challengeList = []
@@ -74,7 +105,7 @@
             document.getElementById("selectedConfirmation").innerHTML = result.message;
         }
 
-
+        /*
         async function getUserChallenges() {
             const x = await fetch('/userChallenges');
             const userChallenges = await x.json();
@@ -82,6 +113,7 @@
 
             document.getElementById("userChallenges").innerHTML = userChallenges;
         }
+        */
 
     </script>
 

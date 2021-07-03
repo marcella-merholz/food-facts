@@ -9,17 +9,26 @@
 </head>
 
 <body>
+
+    <!-------------------------- Header und Userhandling ---------------------------->
+
+    <iframe id="userRL" src="user.html"></iframe>
+
     <header class="header-stuck">
         <div id="header-container">
             <div id="menue"><img class="menue" src="img/ff-svg-files/Menue-weiss.svg" alt="menue"></div>
-            <div id="user">
-                <span class="text-specs">Register / Login </span>
-                <span><img class="userIcon" src="img/ff-svg-files/User-weiss.svg" alt="userIcon"></span>
+            <div id="user" class="text-specs">
+                <span class="userRL" onclick="showUserR()">Register </span>/
+                <span class="userRL" onclick="showUserL()">Login</span>
             </div>
         </div>
     </header>
 
-    <h1 id="headline" class="headline-specs">Food Facts<span id="world">🌍︎</span></h1>
+    <h1 id="headline" class="headline-specs">Food Facts
+        <!--<span id="world">🌍︎</span>-->
+    </h1>
+
+    <!-------------------------- Inhalt ---------------------------->
 
     <img class="up" src="img/svg-facts/01-Gesundheit-up.svg">
     <div id="fact-1" class="fact">
@@ -28,27 +37,28 @@
             <div id="act-big-1" onclick="this.style.visibility='hidden'">
                 <img class="act-big" src="img/ff-svg-files/act-big.svg">
                 <div class="act-text">
-                    regional & bio <br>
-                    mehr Obst & Gemüse <br>
-                    frisch zubereiten <br>
-                    <a class="act-link" href="challenges.html">mitmachen</a>
+                    _regional & bio <br>
+                    _mehr Obst & Gemüse <br>
+                    _frisch zubereiten <br>
+                    <a class="act-link" href="challenge.html">mitmachen</a>
                 </div>
-            </div> 
+            </div>
             <div id="subline-1">
                 <span class="subline-specs">Gesundheit </span>
-                <span id="act-button" type="button" onclick="document.getElementById('act-big-1').style.visibility='visible'">
-                    <img class="act-small" src="img/ff-svg-files/act-small.svg"></span>
+                <span id="act-button" type="button" onclick="showActBig()"><img class="act-small"
+                        src="img/ff-svg-files/act-small.svg"></span>
             </div>
-            <div id="text-1" class="text-specs">Etwa die Hälfte der Weltbevölkerung ist nicht bedarfsgerecht ernährt.
+            <div id="text-1" class="text-specs text-width">Etwa die Hälfte der Weltbevölkerung ist nicht bedarfsgerecht ernährt.
                 Ein Grossteil leidet an einem Mangel an Vitaminen und Mineralstoffen. Etwa ein Fünftel der
                 Weltbevölkerung ist wegen falscher Ernährung übergewichtig oder gar adipös. Wir brauchen eine Vielfalt
                 an bezahlbaren, hochwertigen Lebensmitteln mit hoher Nährstoffdichte, die im Bestfall vor Ort und an
-                lokale Kultur- und Standortbedingungen angepasst, produziert wird. <br>
-                <a class="more" href="health.html">▷</a>
+                lokale Kultur- und Standortbedingungen angepasst, produziert werden.
+                <div><a class="more" href="health.html">▷</a></div>
             </div>
         </div>
     </div>
     <img class="down" src="img/svg-facts/01-Gesundheit-down.svg">
+
 
     <img class="up" src="img/svg-facts/02-Tierhaltung-up.svg">
     <div id="fact-2" class="fact">
@@ -58,16 +68,44 @@
                 <span class="subline-specs">Massentierhaltung </span>
                 <img class="act-small" src="img/ff-svg-files/act-small.svg">
             </div>
-            <div id="text-2" class="text-specs">In der Massentierhaltung leben und sterben allein in Deutschland etwa
-                763 Mio. Tiere pro Jahr (Stand 2019) Die meisten Tiere werden gewaltsam den Haltungsformen angepasst,
+            <div id="text-2" class="text-specs text-width">In der Massentierhaltung leben und sterben allein in Deutschland etwa
+                763 Millionen Tiere pro Jahr (Stand 2019) Die meisten Tiere werden gewaltsam den Haltungsformen
+                angepasst,
                 die wesentlichen Grundbedürfnisse der Tiere werden ignoriert und ihre Bewegungsfreiheit wird stark
                 eingeschränkt. Um die Tiere trotz diesen Massnahmen leistungsfähig zu erhalten, wird häufig
-                routinemässig Antibiotika verabreicht und das bringt auch Gefahren für unsere menschliche Gesundheit. <br>
-                <a class="more" href="animals.html">▷</a>
+                routinemässig Antibiotika verabreicht und das bringt auch Gefahren für unsere menschliche Gesundheit.
+                <div><a class="more" href="animals.html">▷</a></div>
             </div>
         </div>
     </div>
     <img class="down" src="img/svg-facts/02-Tierhaltung-down.svg">
+
+
+    <script>
+
+        //-------------------------- SCRIPT Userhandling ----------------------------
+
+        function showUserR() {
+            const myframe = document.getElementById("userRL");
+            const register = myframe.contentWindow.document.getElementById("register");
+            myframe.style.visibility = "visible";
+            register.style.visibility = "visible";
+        }
+
+        function showUserL() {
+            const myframe = document.getElementById("userRL");
+            const login = myframe.contentWindow.document.getElementById("login");
+            myframe.style.visibility = "visible";
+            login.style.visibility = "visible";
+        }
+
+        //-------------------------- SCRIPT Act ----------------------------
+
+        function showActBig() {
+            document.getElementById("act-big-1").style.visibility = "visible";
+        }
+
+    </script>
 
 </body>
 

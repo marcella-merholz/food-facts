@@ -4,7 +4,6 @@ const userService = new UserService();
 module.exports = class UserController {
 
     async getUsers() {
-        // coordinate interaction with domain here (f.e. call service methods)
         return await userService.getUsers();
     }
 
@@ -19,7 +18,7 @@ module.exports = class UserController {
         if (password !== passwordConfirmation) {
             throw{
                 name: 'checkPasswordError',
-                message: 'Passwort stimmt nicht überein.'
+                message: 'Passwort stimmt nicht überein!'
             }
         }
     }
@@ -29,7 +28,7 @@ module.exports = class UserController {
         if (user != null) {
             throw {
                 name: 'checkUserExistsError',
-                message: 'Diese Email-Adresse ist bereits registriert.'
+                message: 'Diese Email-Adresse ist bereits registriert!'
             }
         }
     }
@@ -48,7 +47,7 @@ module.exports = class UserController {
         } else {
             throw {
                 name: 'verifyUserError',
-                message: 'Falsches Passwort.'
+                message: 'Falsches Passwort!'
             }
         }
     }
