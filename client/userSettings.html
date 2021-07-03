@@ -9,9 +9,75 @@
 
 </head>
 
-<body>
+<body onload="getUserChallenges()">
 
-    <input type="button" value="getUserChallenges" onclick="getUserChallenges()">
-    <div id=userChallengeContainer></div>
+    <div id=userSettings>
+        <p>Meine Benutzereinstellungen.</p><br>
+        <p>Meine persönliche Challenge.</p><br>
+
+        <div id="userChallengesContainer"></div><br>
+
+        <input type="button" value="getPointsUserChallenge" onclick="getPointsUserChallenge()">
+        <div id="userPoints"></div><br>
+    </div>
+
+    <script>
+
+        async function getUserChallenges() {
+            const x = await fetch('/userSettings');
+            const userChallenges = await x.json();
+            // document.getElementById("userChallengesContainer").innerHTML = ""
+            for (oneUserChallenge of userChallenges) {
+
+                const id = oneUserChallenge.ID;
+                const text = [oneUserChallenge.Description + "(" + "endet am:" + oneUserChallenge.Duration + ")"];
+
+                let divE = document.createElement("div");
+                let labelE = document.createElement("LABEL");
+                labelE.id = "challengeID_" + id;
+
+                let userChallenges = document.createElement("INPUT");
+                userChallenges.type = "checkbox";
+                userChallenges.name = "userChallenge";
+                userChallenges.value = id;
+
+                userChallenges.checked = (oneUserChallenge.Status === 1);
+                userChallenges.onchange = toggleUserChallenge;
+
+                labelE.appendChild(userChallenges);
+                labelE.appendChild(document.createTextNode(text));
+                divE.appendChild(labelE)
+                document.getElementById("userChallengesContainer").appendChild(divE);
+            }
+        }
+
+
+        async function toggleUserChallenge(event) {
+            console.log(event)
+            const checkbox = event.target;
+            const id = parseInt(checkbox.value);
+            const status = checkbox.checked ? 1 : 0;
+
+            await fetch('/userSettings', data = {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id, status
+                })
+            });
+        }
+
+        async function getPointsUserChallenge() {
+            const x = await fetch('/userSettings/points');
+            const userPoints = await x.json();
+            document.getElementById("userPoints").innerHTML = userPoints.Points;
+         }
+
+    </script>
+
 
 </body>
+
+</html>

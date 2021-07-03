@@ -72,6 +72,35 @@ app.get("/userChallenges", async function (req, res, next) {
   res.json(userChallenges);
 });
 
+// UserSettings ------------------------------------------------------------------------ //
+app.get ("/userSettings", async function (req, res, next) {
+  const userChallenges = await userChallengeController.getUserChallenges();
+  res.json(userChallenges);
+});
+
+app.patch('/userSettings', async function (req, res, next) {
+  try {
+    console.log('Patch')
+    await userChallengeController.updateSelectedUserChallenges(req.body);
+    res.status(200).json({ message: 'challenges wurden upgedatet'});
+  } catch (err) {
+    console.log("err: ", err)
+    next(err);
+  }
+});
+
+app.get ("/userSettings/points", async function (req, res, next) {
+  const userPoints = await userChallengeController.getUserPoints();
+  res.json(userPoints); 
+});
+
+
+/*app.get("/user/:userid/challenges", async function (req, res, next) {
+  const userId = req.params.userid;
+  const userChallenges = await userChallengeController.getSelectedUserChallenges(userId);
+  res.json(userChallenges);
+});*/
+
 
 // Allgemein --------------------------------------------------------------------------- //
 app.listen(port, function () {

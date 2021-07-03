@@ -3,6 +3,7 @@ const userChallengeRepository = new UserChallengeRepository();
 
 module.exports = class UserChallengeService {
 
+    // challenge.html --------------------------------------------------------------------------- //
     async setUserChallenge(challengeId, duration) {
         await userChallengeRepository.setUserChallenge(challengeId, duration);
     }
@@ -10,5 +11,20 @@ module.exports = class UserChallengeService {
     async getUserChallenges() {
         return await userChallengeRepository.getUserChallenges();
     }
+
+
+    // userSettings.html --------------------------------------------------------------------------- //
+    async getUserChallenges() {
+        return await userChallengeRepository.getUserChallenges();
+    }
+
+    async updateSelectedUserChallenges(id, status) {
+        await userChallengeRepository.updateSelectedUserChallenges(id, status);
+    }
+
+    async getUserPoints() {
+        return await userChallengeRepository.getUserPoints();
+    }
+
 
 }
