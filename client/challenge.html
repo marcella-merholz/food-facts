@@ -24,15 +24,17 @@
         </div>
     </header>
 
-    <h1 id="headline" class="headline-specs">Food F<span id="act-container"><img class="act" src="img/ff-svg-files/act-small.svg"></span>acts
+    <h1 id="headline" class="headline-specs">Food F<span id="act-container"><img class="act"
+                src="img/ff-svg-files/act-small.svg"></span>acts
         <!--<span id="world">🌍︎</span>-->
     </h1>
 
     <div id=select class="text-specs black">
+
         <label>Zeitraum festlegen: <input id="duration" type="date" name="duration"></label><br>
-        <div id="challengeContainer"></div><br>
+        <div id="challengeContainer" class="text-specs black"></div><br>
         <input class="text-specs black send" type="button" value="Send" onclick="sendSelected()">
-        <div id=selectedConfirmation></div>
+        <div id="selectedConfirmation"></div>
     </div>
 
 
@@ -55,16 +57,15 @@
         }
 
         //-------------------------- SCRIPT Challenges ----------------------------
-        
+
         async function getChallenges() {
             const x = await fetch('/challenges');
             const challenges = await x.json();
             for (oneChallenge of challenges) {
-
                 const id = oneChallenge.ID;
                 const text = oneChallenge.Description;
-                
-                let divE = document.createElement("div")
+
+                let divE = document.createElement("div");
                 let labelE = document.createElement("LABEL");
                 labelE.id = "id_" + id;
 
@@ -75,9 +76,8 @@
 
                 labelE.appendChild(challenge);
                 labelE.appendChild(document.createTextNode(text));
-                divE.appendChild(labelE)
+                divE.appendChild(labelE);
                 document.getElementById("challengeContainer").appendChild(divE);
-
             }
         }
 
@@ -87,7 +87,7 @@
             challengeCont.childNodes.forEach(divElement => {
                 let labelE = divElement.childNodes[0]
                 let inputE = labelE.childNodes[0]
-                challengeList = [...challengeList, {id: inputE.value, status: inputE.checked}]
+                challengeList = [...challengeList, { id: inputE.value, status: inputE.checked }]
             });
             const parDuration = document.getElementById('duration').value;
 
