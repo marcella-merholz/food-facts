@@ -35,12 +35,18 @@ module.exports = class UserChallengeRepository {
     }
 
     async updateSelectedUserChallenges(id, status) {
-        console.log(typeof id, id, typeof status, status)
+        console.log(typeof id, id, typeof status, status);
         const db = await this.openDb();
         await db.run('UPDATE userChallenges SET Status = ? WHERE ID = ?', [status, id]);
         db.close()
     }
 
+    async cancelChallenge(userId, status) {
+        console.log(typeof userId, userId, typeof status, status);
+        const db = await this.openDb();
+        await db.run('UPDATE userChallenges SET Status = ? WHERE UserID = ?', [status, userId]);
+        db.close()
+    }
     async getUserPoints() {
         const db = await this.openDb();
         const userPoints = await db.all(`SELECT ifnull(SUM(points), 0) Points FROM challenges join userChallenges on challenges.ID = userChallenges.ChallengeID where Status = 1 and UserID = ?`, [1]);

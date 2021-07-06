@@ -67,6 +67,15 @@ app.post('/challenge/select', async function (req, res, next) {
   }
 });
 
+app.patch('/userSettings/cancel', async function (req, res, next) {
+  try {
+    await userChallengeController.cancelChallenge(req.body);
+    res.status(200).json({ message: 'YEAH!' });
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.get("/userChallenges", async function (req, res, next) {
   const userChallenges = await userChallengeController.getUserChallenges();
   res.json(userChallenges);

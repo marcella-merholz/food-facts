@@ -12,7 +12,6 @@ module.exports = class UserChallengeService {
         return await userChallengeRepository.getUserChallenges();
     }
 
-
     // userSettings.html --------------------------------------------------------------------------- //
     async getUserChallenges() {
         return await userChallengeRepository.getUserChallenges();
@@ -20,6 +19,10 @@ module.exports = class UserChallengeService {
 
     async updateSelectedUserChallenges(id, status) {
         await userChallengeRepository.updateSelectedUserChallenges(id, status);
+    }
+
+    async cancelChallenge(userId, status) {
+        await userChallengeRepository.cancelChallenge(userId, status);
     }
 
     async getUserPoints() {

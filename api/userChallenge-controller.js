@@ -37,12 +37,15 @@ module.exports = class UserChallengeController {
     async updateSelectedUserChallenges(reqBody) {
         const { id, status } = reqBody;
         await userChallengeService.updateSelectedUserChallenges(id, status);
-
     }
 
     async getUserPoints() {
         return await userChallengeService.getUserPoints();
     }
 
+    async cancelChallenge(reqBody) {
+        const { userId, status } = reqBody;
+        await userChallengeService.cancelChallenge(userId, status);
+    }
 
 }

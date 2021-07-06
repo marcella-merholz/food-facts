@@ -9,16 +9,16 @@
 
 </head>
 
-<body onload="getUserChallenges()">
+<body onload="getUserChallenges(), getPointsUserChallenge()">
 
     <div id=userSettings>
-        <p>Meine Benutzereinstellungen.</p><br>
-        <p>Meine persönliche Challenge.</p><br>
-
+        <p>Meine persönliche Challenge <span id="duration"></span></p><br>
         <div id="userChallengesContainer"></div><br>
 
-        <input type="button" value="getPointsUserChallenge" onclick="getPointsUserChallenge()">
         <div id="userPoints"></div><br>
+        <!--Emojis einbauen-->
+
+        <input type="button" value="Challenge abbrechen" onclick="cancelChallenge()">
     </div>
 
     <script>
@@ -29,8 +29,11 @@
             // document.getElementById("userChallengesContainer").innerHTML = ""
             for (oneUserChallenge of userChallenges) {
 
+                const duration = oneUserChallenge.Duration;
+                document.getElementById("duration").innerHTML = "(läuft noch bis " + duration + ")";
+
                 const id = oneUserChallenge.ID;
-                const text = [oneUserChallenge.Description + "(" + "endet am:" + oneUserChallenge.Duration + ")"];
+                const text = oneUserChallenge.Description;
 
                 let divE = document.createElement("div");
                 let labelE = document.createElement("LABEL");
@@ -51,12 +54,11 @@
             }
         }
 
-
         async function toggleUserChallenge(event) {
             console.log(event)
             const checkbox = event.target;
-            const id = parseInt(checkbox.value);
-            const status = checkbox.checked ? 1 : 0;
+            const parId = parseInt(checkbox.value);
+            const parStatus = checkbox.checked ? 1 : 0;
 
             await fetch('/userSettings', data = {
                 method: 'PATCH',
@@ -64,7 +66,8 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id, status
+                    id: parId,
+                    status: parStatus,
                 })
             });
         }
@@ -73,7 +76,23 @@
             const x = await fetch('/userSettings/points');
             const userPoints = await x.json();
             document.getElementById("userPoints").innerHTML = userPoints.Points;
-         }
+        }
+
+        async function cancelChallenge() {
+            const parStatus = 2;
+            const parUserId = 1;
+
+            await fetch('/userSettings/cancel', data = {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    status: parStatus,
+                    userId: parUserId,
+                })
+            });
+        }
 
     </script>
 
