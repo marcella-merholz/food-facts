@@ -25,9 +25,8 @@
     <header class="header-stuck">
         <div id="header-container">
             <div id="menue"><img class="menue" src="img/ff-svg-files/Menue-weiss.svg" alt="menue"></div>
-            <div id="user" class="text-specs">
-                <span class="userRL" onclick="showUserR()">Register </span>/
-                <span class="userRL" onclick="showUserL()">Login</span>
+            <div id="user">
+                <a href="/userSettings.html"><img class="user" src="img/ff-svg-files/User-weiss.svg" alt="userIcon"></a>
             </div>
         </div>
     </header>
@@ -56,7 +55,8 @@
                 <span id="act-button" type="button" onclick="showActBig()"><img class="act-small"
                         src="img/ff-svg-files/act-small.svg"></span>
             </div>
-            <div id="text-1" class="text-specs text-width">Etwa die Hälfte der Weltbevölkerung ist nicht bedarfsgerecht ernährt.
+            <div id="text-1" class="text-specs text-width">Etwa die Hälfte der Weltbevölkerung ist nicht bedarfsgerecht
+                ernährt.
                 Ein Grossteil leidet an einem Mangel an Vitaminen und Mineralstoffen. Etwa ein Fünftel der
                 Weltbevölkerung ist wegen falscher Ernährung übergewichtig oder gar adipös. Wir brauchen eine Vielfalt
                 an bezahlbaren, hochwertigen Lebensmitteln mit hoher Nährstoffdichte, die im Bestfall vor Ort und an
@@ -76,7 +76,8 @@
                 <span class="subline-specs">Massentierhaltung </span>
                 <img class="act-small" src="img/ff-svg-files/act-small.svg">
             </div>
-            <div id="text-2" class="text-specs text-width">In der Massentierhaltung leben und sterben allein in Deutschland etwa
+            <div id="text-2" class="text-specs text-width">In der Massentierhaltung leben und sterben allein in
+                Deutschland etwa
                 763 Millionen Tiere pro Jahr (Stand 2019) Die meisten Tiere werden gewaltsam den Haltungsformen
                 angepasst,
                 die wesentlichen Grundbedürfnisse der Tiere werden ignoriert und ihre Bewegungsfreiheit wird stark
@@ -90,24 +91,6 @@
 
 
     <script>
-
-        //-------------------------- SCRIPT Userhandling ----------------------------
-
-        function showUserR() {
-            const myframe = document.getElementById("userRL");
-            const register = myframe.contentWindow.document.getElementById("register");
-            myframe.style.visibility = "visible";
-            register.style.visibility = "visible";
-        }
-
-        function showUserL() {
-            const myframe = document.getElementById("userRL");
-            const login = myframe.contentWindow.document.getElementById("login");
-            myframe.style.visibility = "visible";
-            login.style.visibility = "visible";
-        }
-
-        //-------------------------- SCRIPT Act ----------------------------
 
         function showActBig() {
             document.getElementById("act-big-1").style.visibility = "visible";

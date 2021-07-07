@@ -27,4 +27,13 @@ module.exports = class UserService {
         return hashedPassword;
     }
 
+    async startSession(sessionID, userID) {
+        await userRepository.startSession(sessionID, userID);
+    }
+
+
+    async getSessionUser(sessionId) {
+        return await userRepository.getUserIdBySessionId(sessionId);
+    }
+
 }

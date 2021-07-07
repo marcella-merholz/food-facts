@@ -32,6 +32,8 @@ header {
 
 .userRL {
   cursor: pointer;
+  text-decoration: none;
+  color: #ffffff;
 }
 
 .userRL:hover {
@@ -40,6 +42,10 @@ header {
 
 .menue {
   height: 2vw;
+}
+
+.user {
+  height: 4vw;
 }
 
 /* User Login / Register ------------------------------------------------------------ */

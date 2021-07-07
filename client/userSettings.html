@@ -9,49 +9,95 @@
 
 </head>
 
-<body onload="getUserChallenges(), getPointsUserChallenge()">
+<body onload="checkUserStatus()">
 
-    <div id=userSettings>
+    <!-------------------------- Header und Userhandling ---------------------------->
+    <iframe id="userRL" src="user.html"></iframe>
+
+    <header class="header-stuck">
+        <div id="header-container">
+            <div id="menue"><img class="menue" src="img/ff-svg-files/Menue-weiss.svg" alt="menue"></div>
+            <div id="user" class="text-specs">
+                <span class="userRL" onclick="showUserR()">Register </span>/
+                <span class="userRL" onclick="showUserL()">Login</span>
+            </div>
+        </div>
+    </header>
+
+    <h1 id="headline" class="headline-specs">Food Facts</h1>
+
+
+    <!-------------------------- Inhalt ---------------------------->
+    <div id="userSettings" class="text-specs black">
         <p>Meine persönliche Challenge <span id="duration"></span></p><br>
         <div id="userChallengesContainer"></div><br>
-
         <div id="userPoints"></div><br>
         <!--Emojis einbauen-->
-
-        <input type="button" value="Challenge abbrechen" onclick="cancelChallenge()">
+        <div id="act-button">Erstelle dir eine neue Challenge! <a href="challenge.html" onclick="cancelChallenge()"><img
+                    class="act-small" src="img/ff-svg-files/act-small.svg"></a></div>
     </div>
 
     <script>
 
-        async function getUserChallenges() {
-            const x = await fetch('/userSettings');
-            const userChallenges = await x.json();
-            // document.getElementById("userChallengesContainer").innerHTML = ""
-            for (oneUserChallenge of userChallenges) {
+        //-------------------------- SCRIPT Userhandling ----------------------------
 
-                const duration = oneUserChallenge.Duration;
-                document.getElementById("duration").innerHTML = "(läuft noch bis " + duration + ")";
+        function showUserR() {
+            const myframe = document.getElementById("userRL");
+            const register = myframe.contentWindow.document.getElementById("register");
+            myframe.style.visibility = "visible";
+            register.style.visibility = "visible";
+        }
 
-                const id = oneUserChallenge.ID;
-                const text = oneUserChallenge.Description;
+        function showUserL() {
+            const myframe = document.getElementById("userRL");
+            const login = myframe.contentWindow.document.getElementById("login");
+            myframe.style.visibility = "visible";
+            login.style.visibility = "visible";
+        }
 
-                let divE = document.createElement("div");
-                let labelE = document.createElement("LABEL");
-                labelE.id = "challengeID_" + id;
+        //-------------------------- SCRIPT userChallenges ----------------------------
 
-                let userChallenges = document.createElement("INPUT");
-                userChallenges.type = "checkbox";
-                userChallenges.name = "userChallenge";
-                userChallenges.value = id;
-
-                userChallenges.checked = (oneUserChallenge.Status === 1);
-                userChallenges.onchange = toggleUserChallenge;
-
-                labelE.appendChild(userChallenges);
-                labelE.appendChild(document.createTextNode(text));
-                divE.appendChild(labelE)
-                document.getElementById("userChallengesContainer").appendChild(divE);
+        function checkUserStatus() {
+            const sessionId = window.localStorage.getItem("sessionId");
+            if (sessionId != null) {
+                userChallengeHandling();
             }
+        }
+
+        async function userChallengeHandling() {
+            const x = await fetch('/userChallenge/' + window.localStorage.getItem("sessionId"));
+            const userChallenges = await x.json();
+            for (oneUserChallenge of userChallenges) {
+                if (oneUserChallenge.Status != 2) {
+                    getUserChallenge(oneUserChallenge);
+                }
+                getPointsUserChallenge();
+            }
+        }
+
+        function getUserChallenge(oneUserChallenge) {
+            const duration = oneUserChallenge.Duration;
+            document.getElementById("duration").innerHTML = "(läuft noch bis " + duration + ")";
+
+            const id = oneUserChallenge.ID;
+            const text = oneUserChallenge.Description;
+
+            let divE = document.createElement("div");
+            let labelE = document.createElement("LABEL");
+            labelE.id = "challengeID_" + id;
+
+            let userChallenges = document.createElement("INPUT");
+            userChallenges.type = "checkbox";
+            userChallenges.name = "userChallenge";
+            userChallenges.value = id;
+
+            userChallenges.checked = (oneUserChallenge.Status === 1);
+            userChallenges.onchange = toggleUserChallenge;
+
+            labelE.appendChild(userChallenges);
+            labelE.appendChild(document.createTextNode(text));
+            divE.appendChild(labelE)
+            document.getElementById("userChallengesContainer").appendChild(divE);
         }
 
         async function toggleUserChallenge(event) {
@@ -60,7 +106,7 @@
             const parId = parseInt(checkbox.value);
             const parStatus = checkbox.checked ? 1 : 0;
 
-            await fetch('/userSettings', data = {
+            await fetch('/userChallenge/toggle', data = {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -73,7 +119,7 @@
         }
 
         async function getPointsUserChallenge() {
-            const x = await fetch('/userSettings/points');
+            const x = await fetch('/userChallengePoints');
             const userPoints = await x.json();
             document.getElementById("userPoints").innerHTML = userPoints.Points;
         }
@@ -82,7 +128,7 @@
             const parStatus = 2;
             const parUserId = 1;
 
-            await fetch('/userSettings/cancel', data = {
+            await fetch('/userChallenge/cancel', data = {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -95,7 +141,6 @@
         }
 
     </script>
-
 
 </body>
 

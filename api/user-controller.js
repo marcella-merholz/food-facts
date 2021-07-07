@@ -1,6 +1,8 @@
 const UserService = require("../domain/user-service");
 const userService = new UserService();
 
+const { v4: uuidv4 } = require('uuid');
+
 module.exports = class UserController {
 
     async getUsers() {
@@ -33,23 +35,32 @@ module.exports = class UserController {
         }
     }
 
-    async login(reqBody) {
+    // brauchen wir res?
+    async login(reqBody, res) {
         const { email, password } = reqBody;
         const hashedPassword = userService.hashPassword(password);
-        await this.verifyUser(email, hashedPassword);
+        const userID = await this.verifyUser(email, hashedPassword);
+        const sessionID = uuidv4();
+        console.log(sessionID);
+        await userService.startSession(sessionID, userID);
+        return sessionID;
     }
 
     async verifyUser(email, hashedPassword) {
         const user = await userService.getUserByEmail(email);
         if (user != null && hashedPassword === user.Password) {
             console.log(user.Password);
-            // Session Handling Status auf eingelogged setzen
+            return user.ID;
         } else {
             throw {
                 name: 'verifyUserError',
                 message: 'Falsches Passwort!'
             }
         }
+    }
+
+    async getSessionUser(sessionId) {
+        return await userService.getSessionUser(sessionId);
     }
 
 }

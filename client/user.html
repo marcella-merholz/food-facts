@@ -46,7 +46,6 @@
             document.getElementById("login").style.visibility = "hidden";
         }
 
-
         async function sendRegister() {
             const parRUsername = document.getElementById('rUsername').value
             const parREmail = document.getElementById('rEmail').value
@@ -84,7 +83,9 @@
                 })
             });
             const result = await x.json()
+            console.log(JSON.stringify(result))
             document.getElementById("loginConfirmation").innerHTML = result.message;
+            window.localStorage.setItem("sessionId", result.sessionId);
         }
 
     </script>

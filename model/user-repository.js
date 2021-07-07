@@ -25,8 +25,22 @@ module.exports = class UserRepository {
     }
   }
 
+  async startSession(sessionID, userID) {
+    const db = await this.openDb();
+    await db.run('INSERT INTO sessions (UserID, SessionID) VALUES (?,?)', [userID, sessionID]);
+  }
+
+  async getUserIdBySessionId(sessionId) {
+    const db = await this.openDb();
+    const userSession = await db.all('SELECT * FROM sessions WHERE SessionID = ?', [sessionId]);
+    if (userSession.length === 0) {
+      return null;
+    } else {
+      return userSession[0].userID;
+    }
+  }
+
   async getUsers() {
-    // data storage interaction here (f.e. DB access)
     const db = await this.openDb();
     const users = await db.all('SELECT * FROM users;');
     console.log(users);

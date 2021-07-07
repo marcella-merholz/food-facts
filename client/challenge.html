@@ -33,7 +33,7 @@
 
         <label>Zeitraum festlegen: <input id="duration" type="date" name="duration"></label><br>
         <div id="challengeContainer" class="text-specs black"></div><br>
-        <input class="text-specs black send" type="button" value="Send" onclick="sendSelected()">
+        <input class="text-specs black send" type="button" value="Send" onclick="selectByUser()">
         <div id="selectedConfirmation"></div>
     </div>
 
@@ -81,17 +81,27 @@
             }
         }
 
-        async function sendSelected() {
-            let challengeCont = document.getElementById("challengeContainer")
-            let challengeList = []
+        async function selectByUser() {
+            const sessionId = window.localStorage.getItem("sessionId");
+            if (sessionId != null) {
+                const x = await fetch('/sessionUser/' + sessionId);
+                const userId = await x.json();
+                sendSelected(userId);
+            }
+        }
+
+        async function sendSelected(userId) {
+            let challengeCont = document.getElementById("challengeContainer");
+            let challengeList = [];
             challengeCont.childNodes.forEach(divElement => {
                 let labelE = divElement.childNodes[0]
                 let inputE = labelE.childNodes[0]
                 challengeList = [...challengeList, { id: inputE.value, status: inputE.checked }]
             });
             const parDuration = document.getElementById('duration').value;
+            const parUserId = userId;
 
-            const x = await fetch('/challenge/select', data = {
+            const x = await fetch('/challengeSelect', data = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -99,21 +109,12 @@
                 body: JSON.stringify({
                     challenges: challengeList,
                     duration: parDuration,
+                    userId: parUserId,
                 })
             });
             const result = await x.json()
             document.getElementById("selectedConfirmation").innerHTML = result.message;
         }
-
-        /*
-        async function getUserChallenges() {
-            const x = await fetch('/userChallenges');
-            const userChallenges = await x.json();
-            console.log(userChallenges);
-
-            document.getElementById("userChallenges").innerHTML = userChallenges;
-        }
-        */
 
     </script>
 
