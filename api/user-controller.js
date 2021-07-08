@@ -59,9 +59,11 @@ module.exports = class UserController {
         }
     }
 
+    /*
     async getSessionUser(sessionId) {
         return await userService.getSessionUser(sessionId);
     }
+    */
 
 }
 

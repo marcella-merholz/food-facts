@@ -3,6 +3,7 @@ const cors = require('cors'); // cross origin request ..., Schutzmechanismus
 const path = require('path'); // path package node
 const fs = require('fs');
 
+const SecurityController = require("./api/security-controller");
 const UserController = require("./api/user-controller");
 const UserRepository = require("./model/user-repository");
 const ChallengesController = require("./api/challenges-controller");
@@ -12,6 +13,7 @@ const UserChallengeRepository = require("./model/userChallenge-repository");
 const { text } = require('express');
 
 const app = express(); //instanciate express app, Server starten
+const securityController = new SecurityController();
 const userController = new UserController();
 const challengesController = new ChallengesController();
 const userChallengeController = new UserChallengeController();
@@ -39,7 +41,7 @@ app.post('/user/register', async function (req, res, next) {
 app.post('/user/login', async function (req, res, next) {
   try {
     const sessionId = await userController.login(req.body);
-    res.status(200).json({sessionId, message: 'Sie haben sich erfolgreich eingeloggt.'});
+    res.status(200).json({ sessionId, message: 'Sie haben sich erfolgreich eingeloggt.' });
   } catch (err) {
     next(err);
   }
@@ -51,51 +53,73 @@ app.get("/challenges", async function (req, res, next) {
   res.json(challenges);
 });
 
+/*
 app.get("/sessionUser/:sessionId", async function (req, res, next) {
-  const {sessionId} = req.params;
+  const { sessionId } = req.params;
   const userId = await userController.getSessionUser(sessionId);
+  console.log("userid", userId)
   res.json(userId);
 });
+*/
 
 app.post('/challengeSelect', async function (req, res, next) {
-  try {
-    await userChallengeController.checkSelected(req.body);
-    res.status(200).json({ message: 'YEAH! Sie haben Ihre persönliche Challenge erstellt. Den aktuellen Status können Sie sich jederzeit in Ihren Benutzereinstellungen anzeigen lassen und verändern.' });
-  } catch (err) {
-    next(err);
+  const sessionId = req.headers.authorization;
+  const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
+  if (accessAllowed) {
+    try {
+      await userChallengeController.checkSelected(userID, req.body);
+      res.status(200).json({ message: 'YEAH! Sie haben Ihre persönliche Challenge erstellt. Den aktuellen Status können Sie sich jederzeit in Ihren Benutzereinstellungen anzeigen lassen und verändern.' });
+    } catch (err) {
+      next(err);
+    }
   }
 });
 
 // userSettings.html ------------------------------------------------------------------------ /
-// Endpunkt userChallenges mit Parameter sessionId
-app.get("/userChallenge/:sessionId", async function (req, res, next) {
-  const {sessionId} = req.params;
-  const userChallenges = await userChallengeController.getUserChallenges(sessionId);
-  res.json(userChallenges);
-});
-
-app.patch('/userChallenge/toggle', async function (req, res, next) {
-  try {
-    console.log('Patch')
-    await userChallengeController.updateSelected(req.body);
-    res.status(200).json({ message: 'challenges wurden upgedatet'});
-  } catch (err) {
-    console.log("err: ", err)
-    next(err);
+app.get("/userChallenge", async function (req, res, next) {
+  const sessionId = req.headers.authorization;
+  const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
+  if (accessAllowed) {
+    const userChallenges = await userChallengeController.getUserChallenges(userID);
+    res.json(userChallenges);
   }
 });
 
-app.get ("/userChallengePoints", async function (req, res, next) {
-  const userPoints = await userChallengeController.getUserPoints();
-  res.json(userPoints); 
+app.patch('/userChallenge/toggle', async function (req, res, next) {
+  const sessionId = req.headers.authorization;
+  const { accessAllowed } = await securityController.isUserValid(res, sessionId);
+  if (accessAllowed) {
+    try {
+      console.log('Patch')
+      await userChallengeController.updateSelected(req.body);
+      res.status(200).json({ message: 'challenges wurden upgedatet' });
+    } catch (err) {
+      console.log("err: ", err)
+      next(err);
+    }
+  }
+});
+
+app.get("/userChallengePoints", async function (req, res, next) {
+  const sessionId = req.headers.authorization;
+  const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
+  if (accessAllowed) {
+    const userPoints = await userChallengeController.getUserPoints(userID);
+    res.json(userPoints); //evtl ausserhalb
+  }
 });
 
 app.patch('/userChallenge/cancel', async function (req, res, next) {
-  try {
-    await userChallengeController.cancelChallenge(req.body);
-    res.status(200).json({ message: 'YEAH!' });
-  } catch (err) {
-    next(err);
+  console.log("PATCH /userChallenge/cancel", req.headers.authorization);
+  const sessionId = req.headers.authorization;
+  const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
+  if (accessAllowed) {
+    try {
+      await userChallengeController.cancelChallenge(userID, req.body);
+      res.status(200).json({ message: 'YEAH!' });
+    } catch (err) {
+      next(err);
+    }
   }
 });
 

@@ -11,8 +11,7 @@ module.exports = class UserChallengeService {
     }
 
     // userSettings.html --------------------------------------------------------------------------- //
-    async getUserChallenges(sessionId) {
-        const userId = await userRepository.getUserIdBySessionId(sessionId);
+    async getUserChallenges(userId) {
         return await userChallengeRepository.getUserChallenges(userId);
     }
 
@@ -20,8 +19,8 @@ module.exports = class UserChallengeService {
         await userChallengeRepository.updateSelected(id, status);
     }
 
-    async getUserPoints() {
-        return await userChallengeRepository.getUserPoints();
+    async getUserPoints(userId) {
+        return await userChallengeRepository.getUserPoints(userId);
     }
 
     async cancelChallenge(userId, status) {

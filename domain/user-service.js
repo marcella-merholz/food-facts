@@ -5,7 +5,6 @@ const crypto = require('crypto');
 module.exports = class UserService {
 
     async getUsers() {
-        // business logic here
         return await userRepository.getUsers();
     }
 
@@ -31,9 +30,10 @@ module.exports = class UserService {
         await userRepository.startSession(sessionID, userID);
     }
 
-
+    /*
     async getSessionUser(sessionId) {
         return await userRepository.getUserIdBySessionId(sessionId);
     }
+    */
 
 }

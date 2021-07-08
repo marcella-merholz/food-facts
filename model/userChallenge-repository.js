@@ -33,9 +33,9 @@ module.exports = class UserChallengeRepository {
         db.close()
     }
 
-    async getUserPoints() {
+    async getUserPoints(userId) {
         const db = await this.openDb();
-        const userPoints = await db.all(`SELECT ifnull(SUM(points), 0) Points FROM challenges join userChallenges on challenges.ID = userChallenges.ChallengeID where Status = 1 and UserID = ?`, [1]);
+        const userPoints = await db.all(`SELECT ifnull(SUM(points), 0) Points FROM challenges join userChallenges on challenges.ID = userChallenges.ChallengeID where Status = 1 and UserID = ?`, [userId]);
         db.close()
         console.log(userPoints);
         return userPoints[0];

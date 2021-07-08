@@ -57,18 +57,23 @@
 
         //-------------------------- SCRIPT userChallenges ----------------------------
 
-        function checkUserStatus() {
+        function checkUserStatus() { // brauchen wir das noch?
             const sessionId = window.localStorage.getItem("sessionId");
             if (sessionId != null) {
                 userChallengeHandling();
-            }
+            } // else login
         }
 
         async function userChallengeHandling() {
-            const x = await fetch('/userChallenge/' + window.localStorage.getItem("sessionId"));
+            const x = await fetch('/userChallenge', data = {
+                method: 'GET',
+                headers: {
+                    'Authorization': window.localStorage.getItem("sessionId")
+                }
+            });
             const userChallenges = await x.json();
             for (oneUserChallenge of userChallenges) {
-                if (oneUserChallenge.Status != 2) {
+                if (oneUserChallenge.Status != 2 && oneUserChallenge != null) {
                     getUserChallenge(oneUserChallenge);
                 }
                 getPointsUserChallenge();
@@ -109,33 +114,39 @@
             await fetch('/userChallenge/toggle', data = {
                 method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': window.localStorage.getItem("sessionId")
                 },
                 body: JSON.stringify({
                     id: parId,
                     status: parStatus,
                 })
             });
+            getPointsUserChallenge();
         }
 
         async function getPointsUserChallenge() {
-            const x = await fetch('/userChallengePoints');
+            const x = await fetch('/userChallengePoints', data = {
+                method: 'GET',
+                headers: {
+                    'Authorization': window.localStorage.getItem("sessionId")
+                }
+            });
             const userPoints = await x.json();
             document.getElementById("userPoints").innerHTML = userPoints.Points;
         }
 
         async function cancelChallenge() {
             const parStatus = 2;
-            const parUserId = 1;
 
             await fetch('/userChallenge/cancel', data = {
                 method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': window.localStorage.getItem("sessionId")
                 },
                 body: JSON.stringify({
                     status: parStatus,
-                    userId: parUserId,
                 })
             });
         }

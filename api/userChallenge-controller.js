@@ -4,19 +4,20 @@ const userChallengeService = new UserChallengeService();
 module.exports = class UserChallengeController {
 
     // challenge.html --------------------------------------------------------------------------- //
-    async checkSelected(reqBody) {
-        const { challenges, duration, userId } = reqBody;
+    async checkSelected(userId, reqBody) {
+        const { challenges, duration} = reqBody;
+        const parUserId = userId;
         for (const challenge of challenges) {
             if (challenge.status === true) {
                 const challengeId = challenge.id;
-                await userChallengeService.setUserChallenge(challengeId, duration, userId);
+                await userChallengeService.setUserChallenge(challengeId, duration, parUserId);
             }
         }
     }
 
     // userSettings.html --------------------------------------------------------------------------- //
-    async getUserChallenges(sessionId) {
-        return await userChallengeService.getUserChallenges(sessionId);
+    async getUserChallenges(userId) {
+        return await userChallengeService.getUserChallenges(userId);
     }
 
     async updateSelected(reqBody) {
@@ -24,8 +25,8 @@ module.exports = class UserChallengeController {
         await userChallengeService.updateSelected(id, status);
     }
 
-    async getUserPoints() {
-        return await userChallengeService.getUserPoints();
+    async getUserPoints(userId) {
+        return await userChallengeService.getUserPoints(userId);
     }
 
     async cancelChallenge(reqBody) {

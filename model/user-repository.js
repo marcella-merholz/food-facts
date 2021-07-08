@@ -30,14 +30,10 @@ module.exports = class UserRepository {
     await db.run('INSERT INTO sessions (UserID, SessionID) VALUES (?,?)', [userID, sessionID]);
   }
 
-  async getUserIdBySessionId(sessionId) {
+  async getUserIdBySessionId(res, sessionId) {
     const db = await this.openDb();
     const userSession = await db.all('SELECT * FROM sessions WHERE SessionID = ?', [sessionId]);
-    if (userSession.length === 0) {
-      return null;
-    } else {
-      return userSession[0].userID;
-    }
+    console.log("UserRepository.getUserIdBySessionId()",userSession[0].UserID);
   }
 
   async getUsers() {
