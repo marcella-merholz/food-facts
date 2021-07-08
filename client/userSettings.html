@@ -9,7 +9,7 @@
 
 </head>
 
-<body onload="checkUserStatus()">
+<body onload="userChallengeHandling()">
 
     <!-------------------------- Header und Userhandling ---------------------------->
     <iframe id="userRL" src="user.html"></iframe>
@@ -57,12 +57,14 @@
 
         //-------------------------- SCRIPT userChallenges ----------------------------
 
+        /*
         function checkUserStatus() { // brauchen wir das noch?
             const sessionId = window.localStorage.getItem("sessionId");
             if (sessionId != null) {
                 userChallengeHandling();
             } // else login
         }
+        */
 
         async function userChallengeHandling() {
             const x = await fetch('/userChallenge', data = {
