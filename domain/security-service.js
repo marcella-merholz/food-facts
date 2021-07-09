@@ -4,12 +4,14 @@ const userRepository = new UserRepository();
 module.exports = class SecurityService {
 
     async isUserValid(res, sessionId) {
-        const userSession = await userRepository.getUserIdBySessionId(res, sessionId);
+        const userSession = await userRepository.getUserIdBySessionId(sessionId);
+        console.log ("isUserValid", sessionId, userSession)
+
         if (userSession.length === 0) {
             res.status(403).json({ message: 'Access denied!' });
-            return null;
+            return {accessAllowed: false, userID: null};
           } else {
-            return userSession[0].UserID;
+            return {accessAllowed: true, userID: userSession[0].UserID};
           }
     }
 

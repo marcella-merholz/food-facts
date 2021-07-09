@@ -55,7 +55,7 @@ app.get("/challenges", async function (req, res, next) {
 
 /*
 app.get("/sessionUser/:sessionId", async function (req, res, next) {
-  const { sessionId } = req.params;
+  const { sessionId } = req.params;s
   const userId = await userController.getSessionUser(sessionId);
   console.log("userid", userId)
   res.json(userId);
@@ -65,6 +65,7 @@ app.get("/sessionUser/:sessionId", async function (req, res, next) {
 app.post('/challengeSelect', async function (req, res, next) {
   const sessionId = req.headers.authorization;
   const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
+  console.log("POST /challengeSelect", sessionId, accessAllowed, userID)
   if (accessAllowed) {
     try {
       await userChallengeController.checkSelected(userID, req.body);
