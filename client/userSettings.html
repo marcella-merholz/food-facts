@@ -11,18 +11,43 @@
 
 <body onload="userChallengeHandling()">
 
-    <!-------------------------- Header und Userhandling ---------------------------->
-    <iframe id="userRL" src="user.html"></iframe>
-
+    <!-------------------------- Header ------------------------------->
     <header class="header-stuck">
         <div id="header-container">
             <div id="menue"><img class="menue" src="img/ff-svg-files/Menue-weiss.svg" alt="menue"></div>
             <div id="user" class="text-specs">
-                <span class="userRL" onclick="showUserR()">Register </span>/
-                <span class="userRL" onclick="showUserL()">Login</span>
+                <span class="userRL" onclick="showUserRL()">Register / Login </span>
             </div>
         </div>
     </header>
+
+    <!-------------------------- Userhandling ---------------------------->
+    <div id="userRL" class="layer">
+        <div class="close" onclick="hideUserRL()">╳</div>
+        <div>
+            <span class="input">
+                <div class="text-specs black bold">register</div>
+                <input id="rUsername" class="text-specs black" type="text" name="username" placeholder="Username "
+                    required>
+                <input id="rEmail" class="text-specs black" type="text" name="email" placeholder="E-Mail " required>
+                <input id="rPassword" class="text-specs black" type="password" name="password" placeholder="Password "
+                    required>
+                <input id="rPasswordConfirmation" class="text-specs black" type="password" name="passwordConfirmation"
+                    placeholder="Confirm Password " required><br>
+                <input class="text-specs black send" type="button" value="Send" onclick="sendRegister()">
+                <div id="registerConfirmation" class="text-specs black confirmation"></div>
+            </span>
+            <span class="input">
+                <div class="text-specs black bold">or login</div>
+                <input id="lEmail" class="text-specs black" type="text" name="email" placeholder="E-Mail " required>
+                <input id="lPassword" class="text-specs black" type="password" name="password" placeholder="Password "
+                    required><br>
+                <input class="text-specs black send" type="button" value="Send" onclick="sendLogin()">
+                <div id="loginConfirmation" class="text-specs black confirmation"></div>
+            </span>
+        </div>
+    </div>
+
 
     <h1 id="headline" class="headline-specs">Food Facts</h1>
 
@@ -37,34 +62,62 @@
                     class="act-small" src="img/ff-svg-files/act-small.svg"></a></div>
     </div>
 
+
     <script>
 
         //-------------------------- SCRIPT Userhandling ----------------------------
 
-        function showUserR() {
-            const myframe = document.getElementById("userRL");
-            const register = myframe.contentWindow.document.getElementById("register");
-            myframe.style.visibility = "visible";
-            register.style.visibility = "visible";
+        function showUserRL() {
+            document.getElementById("userRL").style.visibility = "visible";
         }
 
-        function showUserL() {
-            const myframe = document.getElementById("userRL");
-            const login = myframe.contentWindow.document.getElementById("login");
-            myframe.style.visibility = "visible";
-            login.style.visibility = "visible";
+        function hideUserRL() {
+            document.getElementById("userRL").style.visibility = "hidden";
+        }
+
+        async function sendRegister() {
+            const parRUsername = document.getElementById('rUsername').value
+            const parREmail = document.getElementById('rEmail').value
+            const parRPassword = document.getElementById('rPassword').value
+            const parRPasswordConfirmation = document.getElementById('rPasswordConfirmation').value
+
+            const x = await fetch('/user/register', data = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: parRUsername,
+                    email: parREmail,
+                    password: parRPassword,
+                    passwordConfirmation: parRPasswordConfirmation,
+                })
+            });
+            const result = await x.json()
+            document.getElementById("registerConfirmation").innerHTML = result.message;
+        }
+
+        async function sendLogin() {
+            const parLEmail = document.getElementById('lEmail').value
+            const parLPassword = document.getElementById('lPassword').value
+
+            const x = await fetch('/user/login', data = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: parLEmail,
+                    password: parLPassword,
+                })
+            });
+            const result = await x.json()
+            console.log(JSON.stringify(result))
+            document.getElementById("loginConfirmation").innerHTML = result.message;
+            window.localStorage.setItem("sessionId", result.sessionId);
         }
 
         //-------------------------- SCRIPT userChallenges ----------------------------
-
-        /*
-        function checkUserStatus() { // brauchen wir das noch?
-            const sessionId = window.localStorage.getItem("sessionId");
-            if (sessionId != null) {
-                userChallengeHandling();
-            } // else login
-        }
-        */
 
         async function userChallengeHandling() {
             const x = await fetch('/userChallenge', data = {

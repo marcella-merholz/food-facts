@@ -50,22 +50,14 @@ header {
 
 /* User Login / Register ------------------------------------------------------------ */
 
-#userRL { 
+.layer {
+  background-color: #ffffffee;
   visibility: hidden;
   position: absolute;
   z-index: 20;
-  top: 6vw;
   width: 100%;
-  height: 70vw;
+  height: 120vw;
   border-style: hidden;
-}
-
-.layer {
-  background-color: #ffffff;
-  visibility: hidden;
-  position: absolute;
-  width: 100%;
-  height: 60vw;
 }
 
 .close {
@@ -83,9 +75,10 @@ header {
 }
 
 .input {
-  margin-top: 4vw;
+  margin-top: 6vw;
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .input input {
@@ -184,6 +177,10 @@ header {
 
 .black {
   color: #000000;
+}
+
+.bold {
+  font-weight:bold;
 }
 
 .more {
