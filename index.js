@@ -12,7 +12,7 @@ const UserChallengeController = require("./api/userChallenge-controller");
 const UserChallengeRepository = require("./model/userChallenge-repository");
 const { text } = require('express');
 
-const app = express(); //instanciate express app, Server starten
+const app = express(); //instanciate express app, Server initialisieren
 const securityController = new SecurityController();
 const userController = new UserController();
 const challengesController = new ChallengesController();
@@ -28,7 +28,38 @@ app.use(express.urlencoded({
 }));
 
 
-// user.html ------------------------------------------------------------------------------ //
+// index.html ------------------------------------------------------------------------------ //
+app.get("/userStatus", async function (req, res, next) {
+  const sessionId = req.headers.authorization;
+  const { accessAllowed } = await securityController.isUserValid(res, sessionId);
+  if (accessAllowed) {
+    res.json();
+  }
+});
+
+// challenge.html ------------------------------------------------------------------------ //
+app.get("/challenges", async function (req, res, next) {
+  const challenges = await challengesController.getChallenges();
+  res.json(challenges);
+});
+
+app.post('/challengeSelect', async function (req, res, next) {
+  const sessionId = req.headers.authorization;
+  const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
+  console.log("POST /challengeSelect", sessionId, accessAllowed, userID)
+  if (accessAllowed) {
+    try {
+      await userChallengeController.checkSelected(userID, req.body);
+      res.status(200).json({ message: 'YEAH! Sie haben Ihre persönliche Challenge erstellt. Den aktuellen Status können Sie sich jederzeit in Ihren Benutzereinstellungen anzeigen lassen und verändern.' });
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    window.location.replace("/userSettings");
+  }
+});
+
+// userSettings.html ------------------------------------------------------------------------ /
 app.post('/user/register', async function (req, res, next) {
   try {
     await userController.register(req.body);
@@ -47,36 +78,6 @@ app.post('/user/login', async function (req, res, next) {
   }
 });
 
-// challenge.html ------------------------------------------------------------------------ //
-app.get("/challenges", async function (req, res, next) {
-  const challenges = await challengesController.getChallenges();
-  res.json(challenges);
-});
-
-/*
-app.get("/sessionUser/:sessionId", async function (req, res, next) {
-  const { sessionId } = req.params;s
-  const userId = await userController.getSessionUser(sessionId);
-  console.log("userid", userId)
-  res.json(userId);
-});
-*/
-
-app.post('/challengeSelect', async function (req, res, next) {
-  const sessionId = req.headers.authorization;
-  const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
-  console.log("POST /challengeSelect", sessionId, accessAllowed, userID)
-  if (accessAllowed) {
-    try {
-      await userChallengeController.checkSelected(userID, req.body);
-      res.status(200).json({ message: 'YEAH! Sie haben Ihre persönliche Challenge erstellt. Den aktuellen Status können Sie sich jederzeit in Ihren Benutzereinstellungen anzeigen lassen und verändern.' });
-    } catch (err) {
-      next(err);
-    }
-  }
-});
-
-// userSettings.html ------------------------------------------------------------------------ /
 app.get("/userChallenge", async function (req, res, next) {
   const sessionId = req.headers.authorization;
   const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
@@ -117,7 +118,7 @@ app.patch('/userChallenge/cancel', async function (req, res, next) {
   if (accessAllowed) {
     try {
       await userChallengeController.cancelChallenge(userID, req.body);
-      res.status(200).json({ message: 'YEAH!' });
+      res.status(200).json({ message: 'Abgebrochen. Sie können sich nun eine neue Challenge erstellen.' });
     } catch (err) {
       next(err);
     }

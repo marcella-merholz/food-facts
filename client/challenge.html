@@ -19,11 +19,11 @@
         </div>
     </header>
 
-    <h1 id="headline" class="headline-specs">Food F<span id="act-container"><img class="act"
+    <div id="headline" class="headline-specs">Food F<span id="act-container"><img class="act"
                 src="img/ff-svg-files/act-small.svg"></span>acts
-    </h1>
+    </div>
 
-    <div id=select class="text-specs black">
+    <div id=challenges class="content text-specs black">
         <label>Zeitraum festlegen: <input id="duration" type="date" name="duration"></label><br>
         <div id="challengeContainer" class="text-specs black"></div><br>
         <input class="text-specs black send" type="button" value="Send" onclick="sendSelected()">
@@ -70,7 +70,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': window.localStorage.getItem("sessionId")
+                    'Authorization': window.sessionStorage.getItem("sessionId")
                 },
                 body: JSON.stringify({
                     challenges: challengeList,

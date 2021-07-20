@@ -49,12 +49,12 @@
     </div>
 
 
-    <h1 id="headline" class="headline-specs">Food Facts</h1>
+    <div id="headline" class="headline-specs">Food Facts</div>
 
 
     <!-------------------------- Inhalt ---------------------------->
-    <div id="userSettings" class="text-specs black">
-        <p>Meine persönliche Challenge <span id="duration"></span></p><br>
+    <div id="userSettings" class="content text-specs black">
+        <p>Meine persönliche Challenge: <span id="duration"></span></p><br>
         <div id="userChallengesContainer"></div><br>
         <div id="userPoints"></div><br>
         <!--Emojis einbauen-->
@@ -114,7 +114,8 @@
             const result = await x.json()
             console.log(JSON.stringify(result))
             document.getElementById("loginConfirmation").innerHTML = result.message;
-            window.localStorage.setItem("sessionId", result.sessionId);
+            window.sessionStorage.setItem("sessionId", result.sessionId);
+            userChallengeHandling();
         }
 
         //-------------------------- SCRIPT userChallenges ----------------------------
@@ -123,15 +124,24 @@
             const x = await fetch('/userChallenge', data = {
                 method: 'GET',
                 headers: {
-                    'Authorization': window.localStorage.getItem("sessionId")
+                    'Authorization': window.sessionStorage.getItem("sessionId")
                 }
             });
-            const userChallenges = await x.json();
-            for (oneUserChallenge of userChallenges) {
-                if (oneUserChallenge.Status != 2 && oneUserChallenge != null) {
-                    getUserChallenge(oneUserChallenge);
+            if (x.ok) {
+                const userChallenges = await x.json();
+                if (userChallenges.length != 0) {
+                    for (oneUserChallenge of userChallenges) {
+                        if (oneUserChallenge.Status != 2 && oneUserChallenge != null) {
+                            getUserChallenge(oneUserChallenge);
+                        }
+                        getPointsUserChallenge();
+                    }
                 }
-                getPointsUserChallenge();
+                else {
+                    document.getElementById("userChallengesContainer").innerHTML = "Bisher hast du noch keine persönliche Challenge ...";
+                }
+            } else {
+                showUserRL();
             }
         }
 
@@ -170,7 +180,7 @@
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': window.localStorage.getItem("sessionId")
+                    'Authorization': window.sessionStorage.getItem("sessionId")
                 },
                 body: JSON.stringify({
                     id: parId,
@@ -184,7 +194,7 @@
             const x = await fetch('/userChallengePoints', data = {
                 method: 'GET',
                 headers: {
-                    'Authorization': window.localStorage.getItem("sessionId")
+                    'Authorization': window.sessionStorage.getItem("sessionId")
                 }
             });
             const userPoints = await x.json();
@@ -198,7 +208,7 @@
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': window.localStorage.getItem("sessionId")
+                    'Authorization': window.sessionStorage.getItem("sessionId")
                 },
                 body: JSON.stringify({
                     status: parStatus,

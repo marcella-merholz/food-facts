@@ -6,7 +6,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css" />
-    <link rel="script" href="">
 </head>
 
 <body>
@@ -20,27 +19,32 @@
         </div>
     </header>
 
-    <h1 id="headline" class="headline-specs">Food Facts
+    <div id="headline" class="headline-specs">Food Facts
         <!--<span id="world">🌍︎</span>-->
-    </h1>
+    </div>
 
     <!-------------------------- Inhalt ---------------------------->
+    <div id="factsIntro" class="text-specs black">Was wir essen und wie dieses Essen produziert wird, hat großen Einfluss auf unsere Gesundheit
+        und die Zukunft unseres Planeten. Bis zum Jahr 2050 wird die Weltbevölkerung auf über 9 Milliarden Menschen
+        wachsen. Ausreichend Lebensmittel zu produzieren wird zur globalen Herausforderung: Wie können alle Menschen in Zukunft mit ausreichend gesunder Nahrung versorgt werden, ohne
+        dafür unsere Umwelt auszubeuten und zu zerstören? <br><span class="bold">Jeder Mensch muss essen. Jeder Einzelne kann etwas bewirken!</span>
+    </div>
     <img class="up" src="img/svg-facts/01-Gesundheit-up.svg">
-    <div id="fact-1" class="fact">
+    <div id="fact-1" class="content">
         <div class="content-container">
             <img id="img-1" src="img/apple-invers-cut.png" class="flex-element-center">
-            <div id="act-big-1" onclick="this.style.visibility='hidden'">
+            <div id="act-big-1" class="act-big-container" onclick="this.style.visibility='hidden'">
                 <img class="act-big" src="img/ff-svg-files/act-big.svg">
                 <div class="act-text">
                     _regional & bio <br>
                     _mehr Obst & Gemüse <br>
                     _frisch zubereiten <br>
-                    <a class="act-link" href="challenge.html">mitmachen</a>
+                    <div class="act-link" type="button" onclick="checkUserStatus()">mitmachen</div>
                 </div>
             </div>
             <div id="subline-1">
                 <span class="subline-specs">Gesundheit </span>
-                <span id="act-button" type="button" onclick="showActBig()"><img class="act-small"
+                <span id="act-button" type="button" onclick="showActBig1()"><img class="act-small"
                         src="img/ff-svg-files/act-small.svg"></span>
             </div>
             <div id="text-1" class="text-specs text-width">Etwa die Hälfte der Weltbevölkerung ist nicht bedarfsgerecht
@@ -49,7 +53,7 @@
                 Weltbevölkerung ist wegen falscher Ernährung übergewichtig oder gar adipös. Wir brauchen eine Vielfalt
                 an bezahlbaren, hochwertigen Lebensmitteln mit hoher Nährstoffdichte, die im Bestfall vor Ort und an
                 lokale Kultur- und Standortbedingungen angepasst, produziert werden.
-                <div><a class="more" href="health.html">▷</a></div>
+                <div><a class="more" href="#">▷</a></div>
             </div>
         </div>
     </div>
@@ -57,12 +61,22 @@
 
 
     <img class="up" src="img/svg-facts/02-Tierhaltung-up.svg">
-    <div id="fact-2" class="fact">
+    <div id="fact-2" class="content">
         <div class="content-container">
             <img id="img-2" src="img/apple-invers-cut.png" class="flex-element-center">
-            <div id="subline-1">
+            <div id="act-big-2" class="act-big-container" onclick="this.style.visibility='hidden'">
+                <img class="act-big" src="img/ff-svg-files/act-big.svg">
+                <div class="act-text">
+                    _regional & bio <br>
+                    _mehr Obst & Gemüse <br>
+                    _frisch zubereiten <br>
+                    <div class="act-link" type="button" onclick="checkUserStatus()">mitmachen</div>
+                </div>
+            </div>
+            <div id="subline-2">
                 <span class="subline-specs">Massentierhaltung </span>
-                <img class="act-small" src="img/ff-svg-files/act-small.svg">
+                <span id="act-button" type="button" onclick="showActBig2()"><img class="act-small"
+                        src="img/ff-svg-files/act-small.svg"></span>
             </div>
             <div id="text-2" class="text-specs text-width">In der Massentierhaltung leben und sterben allein in
                 Deutschland etwa
@@ -71,17 +85,213 @@
                 die wesentlichen Grundbedürfnisse der Tiere werden ignoriert und ihre Bewegungsfreiheit wird stark
                 eingeschränkt. Um die Tiere trotz diesen Massnahmen leistungsfähig zu erhalten, wird häufig
                 routinemässig Antibiotika verabreicht und das bringt auch Gefahren für unsere menschliche Gesundheit.
-                <div><a class="more" href="animals.html">▷</a></div>
+                <div><a class="more" href="#">▷</a></div>
             </div>
         </div>
     </div>
     <img class="down" src="img/svg-facts/02-Tierhaltung-down.svg">
 
 
-    <script>
+    <img class="up" src="img/svg-facts/03-Verpackungsmuell-up.svg">
+    <div id="fact-3" class="content">
+        <div class="content-container">
+            <img id="img-3" src="img/apple-invers-cut.png" class="flex-element-center">
+            <div id="act-big-3" class="act-big-container" onclick="this.style.visibility='hidden'">
+                <img class="act-big" src="img/ff-svg-files/act-big.svg">
+                <div class="act-text">
+                    _regional & bio <br>
+                    _mehr Obst & Gemüse <br>
+                    _frisch zubereiten <br>
+                    <div class="act-link" type="button" onclick="checkUserStatus()">mitmachen</div>
+                </div>
+            </div>
+            <div id="subline-3">
+                <span class="subline-specs">Verpackungsmüll </span>
+                <span id="act-button" type="button" onclick="showActBig3()"><img class="act-small"
+                        src="img/ff-svg-files/act-small.svg"></span>
+            </div>
+            <div id="text-2" class="text-specs text-width">Die meisten Lebensmittelverpackungen werden nur einmal
+                verwendet.
+                Rund die Hälfte der Lebensmittelverpackungen bestehen heute aus Kunststoff. Das ist schlecht für die
+                Umwelt, da sich Plastik aus Abfällen auf Feldern und Äckern, und im Meer wiederfindet. So gelangt
+                Mikroplastik in die Nahrungskette und das bedroht die Umwelt, die Meere und am Ende auch uns Menschen.
+                <div><a class="more" href="#">▷</a></div>
+            </div>
+        </div>
+    </div>
+    <img class="down" src="img/svg-facts/03-Verpackungsmuell-down.svg">
 
-        function showActBig() {
+
+    <img class="up" src="img/svg-facts/04-Wasser-up.svg">
+    <div id="fact-4" class="content">
+        <div class="content-container">
+            <img id="img-4" src="img/apple-invers-cut.png" class="flex-element-center">
+            <div id="act-big-4" class="act-big-container" onclick="this.style.visibility='hidden'">
+                <img class="act-big" src="img/ff-svg-files/act-big.svg">
+                <div class="act-text">
+                    _regional & bio <br>
+                    _mehr Obst & Gemüse <br>
+                    _frisch zubereiten <br>
+                    <div class="act-link" type="button" onclick="checkUserStatus()">mitmachen</div>
+                </div>
+            </div>
+            <div id="subline-4">
+                <span class="subline-specs">Wasser </span>
+                <span id="act-button" type="button" onclick="showActBig4()"><img class="act-small"
+                        src="img/ff-svg-files/act-small.svg"></span>
+            </div>
+            <div id="text-4" class="text-specs text-width">Weltweit werden 70 Prozent des vom Menschen genutzten Wassers
+                in der Landwirtschaft verbraucht. Die Welternährungsorganisation FAO geht davon aus, dass Wasser zur
+                Bewässerung in vielen Gebieten in absehbarer Zeit nicht mehr in ausreichendem Maße zur Verfügung stehen
+                wird. Der Wasserbedarf für die Produktion verschiedener Lebensmittel unterscheidet sich sehr. So
+                benötigt man beispielsweise für ein Kilogramm Kartoffeln gut 250 Liter Wasser, für ein Kilogramm
+                Rindfleisch hingegen fast 15500 Liter. Wir können also mit der Wahl unserer Lebensmittel direkt den
+                Wasserverbrauch beeinflussen.
+                <div><a class="more" href="#">▷</a></div>
+            </div>
+        </div>
+    </div>
+    <img class="down" src="img/svg-facts/04-Wasser-down.svg">
+
+
+    <img class="up" src="img/svg-facts/05-Emission-up.svg">
+    <div id="fact-5" class="content">
+        <div class="content-container">
+            <img id="img-5" src="img/apple-invers-cut.png" class="flex-element-center">
+            <div id="act-big-5" class="act-big-container" onclick="this.style.visibility='hidden'">
+                <img class="act-big" src="img/ff-svg-files/act-big.svg">
+                <div class="act-text">
+                    _regional & bio <br>
+                    _mehr Obst & Gemüse <br>
+                    _frisch zubereiten <br>
+                    <div class="act-link" type="button" onclick="checkUserStatus()">mitmachen</div>
+                </div>
+            </div>
+            <div id="subline-5">
+                <span class="subline-specs">Emission </span>
+                <span id="act-button" type="button" onclick="showActBig5()"><img class="act-small"
+                        src="img/ff-svg-files/act-small.svg"></span>
+            </div>
+            <div id="text-5" class="text-specs text-width">Unsere Ernährung verursacht beachtliche Emissionen von
+                Treibhausgasen. Nahrungsmittel werden angebaut, geerntet, transportiert, gelagert, eventuell
+                weiterverarbeitet, bis sie schließlich im Verkauf landen. Im Privathaushalt angekommen, werden sie
+                ebenfalls gelagert, oft gekühlt, zubereitet und verzehrt – oder enden im Abfall, der wiederum entsorgt
+                werden muss.
+                Eine Klimastudie von global2000 hat berechnet, dass beispielsweise die Ernährung in Österreich mehr
+                Treibhausgasemissionen verursacht als der PKW-Verkehr in Österreich.
+                <div><a class="more" href="#">▷</a></div>
+            </div>
+        </div>
+    </div>
+    <img class="down" src="img/svg-facts/05-Emission-down.svg">
+
+
+    <img class="up" src="img/svg-facts/06-Raubbau-up.svg">
+    <div id="fact-6" class="content">
+        <div class="content-container">
+            <img id="img-6" src="img/apple-invers-cut.png" class="flex-element-center">
+            <div id="act-big-6" class="act-big-container" onclick="this.style.visibility='hidden'">
+                <img class="act-big" src="img/ff-svg-files/act-big.svg">
+                <div class="act-text">
+                    _regional & bio <br>
+                    _mehr Obst & Gemüse <br>
+                    _frisch zubereiten <br>
+                    <div class="act-link" type="button" onclick="checkUserStatus()">mitmachen</div>
+                </div>
+            </div>
+            <div id="subline-6">
+                <span class="subline-specs">Raubbau </span>
+                <span id="act-button" type="button" onclick="showActBig6()"><img class="act-small"
+                        src="img/ff-svg-files/act-small.svg"></span>
+            </div>
+            <div id="text-6" class="text-specs text-width">Es gibt verschiedene Gründe, warum durch menschliche
+                Aktivitäten Tropenwälder verschwinden. Der Haupttreiber ist dabei die Agrarindustrie, die auf ehemaligen
+                Regenwaldflächen sogenannte „cash crops“ anbaut. Das sind zumeist für den Export in die Industrieländer
+                bestimmte Agrarprodukte, die in großen Monokultur-Plantagen angebaut werden. Zu diesen Exportwaren
+                gehören unter anderem Soja als Tierfutter, Palmöl für die Lebensmittel- sowie Kaffee, Kakao und
+                Südfrüchte.Eine der schlimmsten ökologischen Auswirkungen ist der Verlust von Biodiversität mit
+                weitreichenden Folgen.
+                <div><a class="more" href="#">▷</a></div>
+            </div>
+        </div>
+    </div>
+    <img class="down" src="img/svg-facts/06-Raubbau-down.svg">
+
+
+    <img class="up" src="img/svg-facts/07-Verteilung-up.svg">
+    <div id="fact-7" class="content">
+        <div class="content-container">
+            <img id="img-7" src="img/apple-invers-cut.png" class="flex-element-center">
+            <div id="act-big-7" class="act-big-container" onclick="this.style.visibility='hidden'">
+                <img class="act-big" src="img/ff-svg-files/act-big.svg">
+                <div class="act-text">
+                    _regional & bio <br>
+                    _mehr Obst & Gemüse <br>
+                    _frisch zubereiten <br>
+                    <div class="act-link" type="button" onclick="checkUserStatus()">mitmachen</div>
+                </div>
+            </div>
+            <div id="subline-7">
+                <span class="subline-specs">Nahrungsmittelversorgung </span>
+                <span id="act-button" type="button" onclick="showActBig7()"><img class="act-small"
+                        src="img/ff-svg-files/act-small.svg"></span>
+            </div>
+            <div id="text-7" class="text-specs text-width">Jeder neunte Mensch auf der Welt muss jeden Abend hungrig
+                schlafen gehen. Andere haben mehr als sie brauchen. Nahrungsmittelproduktion braucht Ressourcen und
+                diese stehen nicht unbegrenzt zur Verfügung. Wie viel und welche Ressourcen benötigt werden,
+                unterscheidet sich je nach Art der Lebensmittel und nach den Produktionsbedingungen.
+                Durch nicht nachhaltige, nicht faire Produktion und die Verschwendung von Nahrungsmitteln werden die
+                Ressourcen für alle knapper.
+                <div><a class="more" href="#">▷</a></div>
+            </div>
+        </div>
+    </div>
+    <img class="down" src="img/svg-facts/07-Verteilung-down.svg">
+
+
+    <script>
+        async function checkUserStatus() {
+            const x = await fetch('/userStatus', data = {
+                method: 'GET',
+                headers: {
+                    'Authorization': window.sessionStorage.getItem("sessionId")
+                }
+            });
+            if (x.ok) {
+                console.log("ok");
+                window.location.href = "challenge.html";
+            } else {
+                console.log("LR");
+                window.location.href = "userSettings.html";
+            }
+        }
+
+        function showActBig1() {
             document.getElementById("act-big-1").style.visibility = "visible";
+        }
+
+        function showActBig2() {
+            document.getElementById("act-big-2").style.visibility = "visible";
+        }
+
+        function showActBig3() {
+            document.getElementById("act-big-3").style.visibility = "visible";
+        }
+
+        function showActBig4() {
+            document.getElementById("act-big-4").style.visibility = "visible";
+        }
+
+        function showActBig5() {
+            document.getElementById("act-big-5").style.visibility = "visible";
+        }
+
+        function showActBig6() {
+            document.getElementById("act-big-6").style.visibility = "visible";
+        }
+
+        function showActBig7() {
+            document.getElementById("act-big-7").style.visibility = "visible";
         }
 
     </script>
