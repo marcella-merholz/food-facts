@@ -14,18 +14,16 @@
     <!-------------------------- Header ------------------------------->
     <header class="header-stuck">
         <div id="header-container">
-            <div id="menue"><img class="menue" src="img/ff-svg-files/Menue-weiss.svg" alt="menue"></div>
-            <div id="user" class="text-specs">
-                <span class="userRL" onclick="showUserRL()">Register / Login </span>
-            </div>
+            <div id="menue" class="text-specs"><a href="index.html" class="textLink" alt="home">Home</a></div>
+            <div id="user" class="text-specs textLink" onclick="showUserRL()">Register / Login </div>
         </div>
     </header>
 
     <!-------------------------- Userhandling ---------------------------->
     <div id="userRL" class="layer">
         <div class="close" onclick="hideUserRL()">╳</div>
-        <div>
-            <span class="input">
+        <div class="inputContainer">
+            <div class="input">
                 <div class="text-specs black bold">register</div>
                 <input id="rUsername" class="text-specs black" type="text" name="username" placeholder="Username "
                     required>
@@ -36,15 +34,15 @@
                     placeholder="Confirm Password " required><br>
                 <input class="text-specs black send" type="button" value="Send" onclick="sendRegister()">
                 <div id="registerConfirmation" class="text-specs black confirmation"></div>
-            </span>
-            <span class="input">
+            </div>
+            <div class="input color">
                 <div class="text-specs black bold">or login</div>
                 <input id="lEmail" class="text-specs black" type="text" name="email" placeholder="E-Mail " required>
                 <input id="lPassword" class="text-specs black" type="password" name="password" placeholder="Password "
                     required><br>
-                <input class="text-specs black send" type="button" value="Send" onclick="sendLogin()">
+                <input class="text-specs send bgBlack" type="button" value="Send" onclick="sendLogin()">
                 <div id="loginConfirmation" class="text-specs black confirmation"></div>
-            </span>
+            </div>
         </div>
     </div>
 
@@ -54,9 +52,9 @@
 
     <!-------------------------- Inhalt ---------------------------->
     <div id="userSettings" class="content text-specs black">
-        <p>Meine persönliche Challenge: <span id="duration"></span></p><br>
-        <div id="userChallengesContainer"></div><br>
-        <div id="userPoints"></div><br>
+        <div class="bSpace">Meine persönliche Challenge: <span id="duration"></span></div>
+        <div id="userChallengesContainer" class="bSpace"></div>
+        <div id="userPoints"></div>
         <!--Emojis einbauen-->
         <div id="act-button">Erstelle dir eine neue Challenge! <a href="challenge.html" onclick="cancelChallenge()"><img
                     class="act-small" src="img/ff-svg-files/act-small.svg"></a></div>
@@ -95,6 +93,7 @@
             });
             const result = await x.json()
             document.getElementById("registerConfirmation").innerHTML = result.message;
+            hideUserRL();
         }
 
         async function sendLogin() {
@@ -116,6 +115,7 @@
             document.getElementById("loginConfirmation").innerHTML = result.message;
             window.sessionStorage.setItem("sessionId", result.sessionId);
             userChallengeHandling();
+            hideUserRL();
         }
 
         //-------------------------- SCRIPT userChallenges ----------------------------
@@ -133,6 +133,8 @@
                     for (oneUserChallenge of userChallenges) {
                         if (oneUserChallenge.Status != 2 && oneUserChallenge != null) {
                             getUserChallenge(oneUserChallenge);
+                        } else {
+                            document.getElementById("userChallengesContainer").innerHTML = "Bisher hast du noch keine persönliche Challenge ...";
                         }
                         getPointsUserChallenge();
                     }

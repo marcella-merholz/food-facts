@@ -29,13 +29,13 @@ header {
   text-align: right;
 }
 
-.userRL {
+.textLink {
   cursor: pointer;
   text-decoration: none;
   color: #ffffff;
 }
 
-.userRL:hover {
+.textLink:hover {
   color: #e5ff00;
 }
 
@@ -55,7 +55,7 @@ header {
   position: absolute;
   z-index: 20;
   width: 100%;
-  height: 120vw;
+  height: 60vw;
   border-style: hidden;
 }
 
@@ -73,8 +73,17 @@ header {
   color: #e5ff00;
 }
 
+.inputContainer {
+  display: flex;
+}
+
+.color {
+  background-color: #e5ff00bb;
+}
+
 .input {
-  margin-top: 6vw;
+  width: 100%;
+  padding-top: 7vw;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -82,7 +91,7 @@ header {
 
 .input input {
   align-self: center;
-  width: 40%;
+  width: 60%;
   margin-top: 2vw;
   padding-left: 1vw;
   border:3px solid #e5ff00;
@@ -93,6 +102,10 @@ header {
   cursor: pointer;
   border:3px solid #e5ff00;
   border-radius: 25px;
+}
+
+.bgBlack {
+  background-color: #000000;
 }
 
 .confirmation {
@@ -106,7 +119,6 @@ header {
 #headline {
   width: 100%;
   padding: 7vw;
-  padding-bottom: 0vw;
 }
 
 .headline-specs {
@@ -134,7 +146,7 @@ header {
 }
 
 .down {
-  margin-top: -25px;
+  margin-top: -30px;
   margin-bottom: 50px;
   width: 100%;
 }
@@ -144,6 +156,14 @@ header {
   padding-top: 0px;
   padding-bottom: 0px;
 }  
+
+.bSpace {
+  padding-bottom: 3.5vw;
+}
+
+.tSpace {
+  padding-top: 3.5vw;
+}
 
 .content-container {
   display: flex;
@@ -194,10 +214,6 @@ header {
 
 .more:hover::before {
   content: "▶ mehr Info ";
-}
-
-#factsIntro {
-  padding: 7vw;
 }
 
 #fact-1 {

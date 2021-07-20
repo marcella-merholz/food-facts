@@ -50,7 +50,7 @@ app.post('/challengeSelect', async function (req, res, next) {
   if (accessAllowed) {
     try {
       await userChallengeController.checkSelected(userID, req.body);
-      res.status(200).json({ message: 'YEAH! Sie haben Ihre persönliche Challenge erstellt. Den aktuellen Status können Sie sich jederzeit in Ihren Benutzereinstellungen anzeigen lassen und verändern.' });
+      res.status(200).json({ message: 'YEAH! Du hast Deine persönliche Challenge erstellt! <br>Den aktuellen Status kannst Du Dir jederzeit in Deinen Benutzereinstellungen anzeigen lassen und verändern.' });
     } catch (err) {
       next(err);
     }
