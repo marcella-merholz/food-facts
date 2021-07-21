@@ -54,10 +54,10 @@
     <div id="userSettings" class="content text-specs black">
         <div class="bSpace">Meine persönliche Challenge: <span id="duration"></span></div>
         <div id="userChallengesContainer" class="bSpace"></div>
-        <div id="userPoints"></div>
+        <div id="userPoints" class="emoji"></div>
         <!--Emojis einbauen-->
-        <div id="act-button" type="button" onclick="cancelChallenge(), checkUserStatus()">Erstelle dir eine neue Challenge! <img
-                    class="act-small" src="img/ff-svg-files/act-small.svg"></div>
+        <div id="act-button" type="button" onclick="cancelChallenge(), checkUserStatus()">Erstelle dir eine neue
+            Challenge! <img class="act-small" src="img/ff-svg-files/act-small.svg"></div>
     </div>
 
 
@@ -200,7 +200,47 @@
                 }
             });
             const userPoints = await x.json();
-            document.getElementById("userPoints").innerHTML = userPoints.Points;
+            showEmojis(userPoints.Points);
+        }
+
+        function showEmojis(userPoints) {
+            let emoji = "";
+            switch (userPoints) {
+                case 0:
+                    emoji = "😏";
+                    break;
+                case 1:
+                    emoji = "🍄";
+                    break;
+                case 2:
+                    emoji = "🌿";
+                    break;
+                case 3:
+                    emoji = "🌈";
+                    break;
+                case 4:
+                    emoji = "💚";
+                    break;
+                case 5:
+                    emoji = "🐬";
+                    break;
+                case 6:
+                    emoji = "🌞";
+                    break;
+                case 7:
+                    emoji = "🌳";
+                    break;
+                case 8:
+                    emoji = "👍";
+                    break;
+                case 9:
+                    emoji = "😊";
+                    break;
+                default:
+                    emoji = "⭐";
+            }
+            document.getElementById("userPoints").innerHTML = emoji;
+            return emoji;
         }
 
         async function cancelChallenge() {

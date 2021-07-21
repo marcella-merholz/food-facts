@@ -221,7 +221,7 @@ header {
 }
 
 #img-1 {
-  width: 25vw;
+  width: 40vw;
   margin-bottom: 8vw;
 }
 
@@ -230,8 +230,8 @@ header {
 }
 
 #img-2 {
-  width: 25vw;
-  margin-bottom: 8vw;
+  width: 60vw;
+  margin-bottom: 6vw;
 }
 
 #fact-3 {
@@ -239,8 +239,8 @@ header {
 }
 
 #img-3 {
-  width: 25vw;
-  margin-bottom: 8vw;
+  width: 50vw;
+  margin-bottom: 4vw;
 }
 
 #fact-4 {
@@ -248,8 +248,8 @@ header {
 }
 
 #img-4 {
-  width: 25vw;
-  margin-bottom: 8vw;
+  width: 22vw;
+  margin-bottom: 2vw;
 }
 
 #fact-5 {
@@ -257,8 +257,8 @@ header {
 }
 
 #img-5 {
-  width: 25vw;
-  margin-bottom: 8vw;
+  width: 45vw;
+  margin-bottom: 2vw;
 }
 
 #fact-6 {
@@ -266,8 +266,8 @@ header {
 }
 
 #img-6 {
-  width: 25vw;
-  margin-bottom: 8vw;
+  width: 40vw;
+  margin-bottom: 1vw;
 }
 
 #fact-7 {
@@ -275,8 +275,8 @@ header {
 }
 
 #img-7 {
-  width: 25vw;
-  margin-bottom: 8vw;
+  width: 35vw;
+  margin-bottom: 1vw;
 }
 
 .water-container {
@@ -342,8 +342,14 @@ header {
 
 /* Challenges -------------------------------------------------------------------------- */
 
-#challengeContainer input{
+#challengeContainer input {
   width: 4vw;
+}
+
+/* userChallenges -------------------------------------------------------------------------- */
+
+.emoji {
+  font-size: 5vw;
 }
 
 
