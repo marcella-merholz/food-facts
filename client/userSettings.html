@@ -56,8 +56,8 @@
         <div id="userChallengesContainer" class="bSpace"></div>
         <div id="userPoints"></div>
         <!--Emojis einbauen-->
-        <div id="act-button">Erstelle dir eine neue Challenge! <a href="challenge.html" onclick="cancelChallenge()"><img
-                    class="act-small" src="img/ff-svg-files/act-small.svg"></a></div>
+        <div id="act-button" type="button" onclick="cancelChallenge(), checkUserStatus()">Erstelle dir eine neue Challenge! <img
+                    class="act-small" src="img/ff-svg-files/act-small.svg"></div>
     </div>
 
 
@@ -216,6 +216,20 @@
                     status: parStatus,
                 })
             });
+        }
+
+        async function checkUserStatus() {
+            const x = await fetch('/userStatus', data = {
+                method: 'GET',
+                headers: {
+                    'Authorization': window.sessionStorage.getItem("sessionId")
+                }
+            });
+            if (x.ok) {
+                window.location.href = "challenge.html";
+            } else {
+                showUserRL();
+            }
         }
 
     </script>

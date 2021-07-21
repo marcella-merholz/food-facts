@@ -279,6 +279,11 @@ header {
   margin-bottom: 8vw;
 }
 
+.water-container {
+  padding: 7vw;
+  padding-bottom: 21vw;
+}
+
 /* Act ------------------------------------------------------------------------------ */
 
 .act-small {
