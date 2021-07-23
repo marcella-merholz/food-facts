@@ -71,8 +71,8 @@ app.post('/user/register', async function (req, res, next) {
 
 app.post('/user/login', async function (req, res, next) {
   try {
-    const sessionId = await userController.login(req.body);
-    res.status(200).json({ sessionId, message: 'Sie haben sich erfolgreich eingeloggt.' });
+    const [ sessionId, userName ] = await userController.login(req.body);
+    res.status(200).json({ sessionId, userName, message: 'Sie haben sich erfolgreich eingeloggt.' });
   } catch (err) {
     next(err);
   }

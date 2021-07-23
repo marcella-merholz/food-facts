@@ -39,18 +39,18 @@ module.exports = class UserController {
     async login(reqBody, res) {
         const { email, password } = reqBody;
         const hashedPassword = userService.hashPassword(password);
-        const userID = await this.verifyUser(email, hashedPassword);
+        const user = await this.verifyUser(email, hashedPassword);
+        const userName = user.Username;
+        const userID = user.ID;
         const sessionID = uuidv4();
-        console.log(sessionID);
         await userService.startSession(sessionID, userID);
-        return sessionID;
+        return [sessionID, userName];
     }
 
     async verifyUser(email, hashedPassword) {
         const user = await userService.getUserByEmail(email);
         if (user != null && hashedPassword === user.Password) {
-            console.log(user.Password);
-            return user.ID;
+            return user;
         } else {
             throw {
                 name: 'verifyUserError',
@@ -58,12 +58,6 @@ module.exports = class UserController {
             }
         }
     }
-
-    /*
-    async getSessionUser(sessionId) {
-        return await userService.getSessionUser(sessionId);
-    }
-    */
 
 }
 

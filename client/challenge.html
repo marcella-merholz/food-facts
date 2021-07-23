@@ -27,7 +27,7 @@
         <label>Zeitraum festlegen: <input id="duration" type="date" name="duration"></label>
         <div id="challengeContainer" class="tSpace bSpace text-specs black"></div>
         <input class="text-specs black send" type="button" value="Send" onclick="sendSelected()">
-        <div id="selectedConfirmation" class="tSpace"></div>
+        <div id="selectedConfirmation" class="tSpace bSpace"></div>
     </div>
 
 
@@ -57,28 +57,32 @@
         }
 
         async function sendSelected() {
-            let challengeCont = document.getElementById("challengeContainer");
-            let challengeList = [];
-            challengeCont.childNodes.forEach(divElement => {
-                let labelE = divElement.childNodes[0]
-                let inputE = labelE.childNodes[0]
-                challengeList = [...challengeList, { id: inputE.value, status: inputE.checked }]
-            });
-            const parDuration = document.getElementById('duration').value;
+            if (window.sessionStorage.getItem("challengeActive") === true) {
+                document.getElementById("selectedConfirmation").innerHTML = "Du hast bereits eine persönliche Challenge! Diese kannst Du auf deiner Benutzerseite ansehen.";
+            } else {
+                let challengeCont = document.getElementById("challengeContainer");
+                let challengeList = [];
+                challengeCont.childNodes.forEach(divElement => {
+                    let labelE = divElement.childNodes[0]
+                    let inputE = labelE.childNodes[0]
+                    challengeList = [...challengeList, { id: inputE.value, status: inputE.checked }]
+                });
+                const parDuration = document.getElementById('duration').value;
 
-            const x = await fetch('/challengeSelect', data = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': window.sessionStorage.getItem("sessionId")
-                },
-                body: JSON.stringify({
-                    challenges: challengeList,
-                    duration: parDuration,
-                })
-            });
-            const result = await x.json()
-            document.getElementById("selectedConfirmation").innerHTML = result.message;
+                const x = await fetch('/challengeSelect', data = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': window.sessionStorage.getItem("sessionId")
+                    },
+                    body: JSON.stringify({
+                        challenges: challengeList,
+                        duration: parDuration,
+                    })
+                });
+                const result = await x.json()
+                document.getElementById("selectedConfirmation").innerHTML = result.message;
+            }
         }
 
     </script>

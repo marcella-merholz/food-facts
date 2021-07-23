@@ -55,7 +55,6 @@
         <div class="bSpace">Meine persönliche Challenge: <span id="duration"></span></div>
         <div id="userChallengesContainer" class="bSpace"></div>
         <div id="userPoints" class="emoji"></div>
-        <!--Emojis einbauen-->
         <div id="act-button" type="button" onclick="cancelChallenge(), checkUserStatus()">Erstelle dir eine neue
             Challenge! <img class="act-small" src="img/ff-svg-files/act-small.svg"></div>
     </div>
@@ -114,7 +113,9 @@
             console.log(JSON.stringify(result))
             document.getElementById("loginConfirmation").innerHTML = result.message;
             window.sessionStorage.setItem("sessionId", result.sessionId);
+            window.sessionStorage.setItem("userName", result.userName);
             userChallengeHandling();
+            document.getElementById("user").innerHTML = result.userName;
             hideUserRL();
         }
 
@@ -130,10 +131,11 @@
             if (x.ok) {
                 const userChallenges = await x.json();
                 if (userChallenges.length != 0) {
-                    for (oneUserChallenge of userChallenges) {
-                        if (oneUserChallenge.Status != 2 && oneUserChallenge != null) {
-                            getUserChallenge(oneUserChallenge);
-                        } else {
+                    for (var i = 0; i < userChallenges.length; i++) {
+                        if (userChallenges[i].Status != 2 && userChallenges[i] != null) {
+                            getUserChallenge(userChallenges[i]);
+                            window.sessionStorage.setItem("challengeActive", true);
+                        } else if (userChallenges[userChallenges.length-1].Status === 2) {
                             document.getElementById("userChallengesContainer").innerHTML = "Bisher hast du noch keine persönliche Challenge ...";
                         }
                         getPointsUserChallenge();
@@ -244,8 +246,8 @@
         }
 
         async function cancelChallenge() {
+            window.sessionStorage.setItem("challengeActive", false);
             const parStatus = 2;
-
             await fetch('/userChallenge/cancel', data = {
                 method: 'PATCH',
                 headers: {
