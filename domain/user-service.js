@@ -22,18 +22,11 @@ module.exports = class UserService {
         const sha = crypto.createHash('sha1');
         sha.update(password);
         const hashedPassword = sha.digest("hex");
-        console.log(hashedPassword);
         return hashedPassword;
     }
 
     async startSession(sessionID, userID) {
         await userRepository.startSession(sessionID, userID);
     }
-
-    /*
-    async getSessionUser(sessionId) {
-        return await userRepository.getUserIdBySessionId(sessionId);
-    }
-    */
 
 }

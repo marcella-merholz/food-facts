@@ -19,8 +19,8 @@ header {
 }
 
 #header-container {
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 3.5vw;
+  padding-right: 3.5vw;
   display: flex;
   justify-content: space-between;
   align-items:center;

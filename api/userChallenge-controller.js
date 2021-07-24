@@ -34,16 +34,4 @@ module.exports = class UserChallengeController {
         await userChallengeService.cancelChallenge(userId, status);
     }
 
-    /*
-    async checkSelectedUserChallenges(reqBody) {
-        const { userChallenges } = reqBody;
-        for (const userChallenge of userChallenges) {
-            if (userChallenge.status === true) {
-                const userChallenges_ID = userChallenge.id;
-                await userChallengeService.updateSelectedUserChallenges(userChallenges_ID);
-            }
-        }
-    }
-    */
-
 }

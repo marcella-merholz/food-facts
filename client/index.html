@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="index.css" />
 </head>
 
-<body>
+<body onload="getUserName()">
     <!-------------------------- Header und Userhandling ---------------------------->
     <header class="header-stuck">
         <div id="header-container">
             <div id="menue"><img class="menue" src="img/ff-svg-files/Menue-weiss.svg" alt="menue"></div>
             <div id="user">
-                <a href="/userSettings.html"><img class="user" src="img/ff-svg-files/User-weiss.svg" alt="userIcon"></a>
+                <a id="userName" class="text-specs textLink" href="/userSettings.html"><img class="user" src="img/ff-svg-files/User-weiss.svg" alt="userIcon"></a>
             </div>
         </div>
     </header>
@@ -250,6 +250,12 @@
 
 
     <script>
+        function getUserName() {
+            if(window.sessionStorage.getItem("userName") != null) {
+                document.getElementById("userName").innerHTML = window.sessionStorage.getItem("userName");
+            }
+        }
+
         async function checkUserStatus() {
             const x = await fetch('/userStatus', data = {
                 method: 'GET',

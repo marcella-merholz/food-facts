@@ -33,14 +33,12 @@ module.exports = class UserRepository {
   async getUserIdBySessionId(sessionId) {
     const db = await this.openDb();
     const userSession = await db.all('SELECT * FROM sessions WHERE SessionID = ?', [sessionId]);
-    // console.log("UserRepository.getUserIdBySessionId()",userSession[0].UserID);
     return userSession;
   }
 
   async getUsers() {
     const db = await this.openDb();
     const users = await db.all('SELECT * FROM users;');
-    console.log(users);
     return users;
   }
 

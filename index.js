@@ -46,7 +46,6 @@ app.get("/challenges", async function (req, res, next) {
 app.post('/challengeSelect', async function (req, res, next) {
   const sessionId = req.headers.authorization;
   const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
-  console.log("POST /challengeSelect", sessionId, accessAllowed, userID)
   if (accessAllowed) {
     try {
       await userChallengeController.checkSelected(userID, req.body);
@@ -92,11 +91,9 @@ app.patch('/userChallenge/toggle', async function (req, res, next) {
   const { accessAllowed } = await securityController.isUserValid(res, sessionId);
   if (accessAllowed) {
     try {
-      console.log('Patch')
       await userChallengeController.updateSelected(req.body);
       res.status(200).json({ message: 'challenges wurden upgedatet' });
     } catch (err) {
-      console.log("err: ", err)
       next(err);
     }
   }
@@ -112,7 +109,6 @@ app.get("/userChallengePoints", async function (req, res, next) {
 });
 
 app.patch('/userChallenge/cancel', async function (req, res, next) {
-  console.log("PATCH /userChallenge/cancel", req.headers.authorization);
   const sessionId = req.headers.authorization;
   const { accessAllowed, userID } = await securityController.isUserValid(res, sessionId);
   if (accessAllowed) {

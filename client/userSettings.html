@@ -130,6 +130,7 @@
             });
             if (x.ok) {
                 const userChallenges = await x.json();
+                document.getElementById("user").innerHTML = window.sessionStorage.getItem("userName");
                 if (userChallenges.length != 0) {
                     for (var i = 0; i < userChallenges.length; i++) {
                         if (userChallenges[i].Status != 2 && userChallenges[i] != null) {
